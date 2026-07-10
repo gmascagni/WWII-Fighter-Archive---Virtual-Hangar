@@ -1,0 +1,72 @@
+[
+  {
+    "name": "P-51 Mustang",
+    "year_introduced": 1942,
+    "top_speed": "440 mph (708 km/h)",
+    "primary_role": "Fighter / Long-range Escort",
+    "image_url": "images/p51_poster.jpg"
+  },
+  {
+    "name": "Supermarine Spitfire Mk IX",
+    "year_introduced": 1942,
+    "top_speed": "408 mph (657 km/h)",
+    "primary_role": "Interceptor Fighter",
+    "image_url": "images/spitfire_poster.jpg"
+  },
+  {
+    "name": "Hawker Hurricane Mk I",
+    "year_introduced": 1937,
+    "top_speed": "340 mph (547 km/h)",
+    "primary_role": "Fighter / Fighter-bomber",
+    "image_url": "images/hurricane_poster.jpg"
+  },
+  {
+    "name": "Lockheed P-38 Lightning",
+    "year_introduced": 1941,
+    "top_speed": "414 mph (666 km/h)",
+    "primary_role": "Fighter / Fighter-bomber / Reconnaissance",
+    "image_url": "images/p38_poster.jpg"
+  },
+  {
+    "name": "Republic P-47 Thunderbolt",
+    "year_introduced": 1942,
+    "top_speed": "433 mph (697 km/h)",
+    "primary_role": "Fighter-bomber / Heavy Fighter",
+    "image_url": "images/p47_poster.jpg"
+  },
+  {
+    "name": "Curtiss P-40 Warhawk",
+    "year_introduced": 1939,
+    "top_speed": "360 mph (580 km/h)",
+    "primary_role": "Fighter / Ground Attack",
+    "image_url": "images/p40_poster.jpg"
+  },
+  {
+    "name": "Vought F4U Corsair",
+    "year_introduced": 1942,
+    "top_speed": "446 mph (718 km/h)",
+    "primary_role": "Carrier-based Fighter-bomber",
+    "image_url": "images/f4u_poster.jpg"
+  },
+  {
+    "name": "Grumman F6F Hellcat",
+    "year_introduced": 1943,
+    "top_speed": "391 mph (629 km/h)",
+    "primary_role": "Carrier-based Fighter",
+    "image_url": "images/f6f_poster.jpg"
+  },
+  {
+    "name": "North American B-25 Mitchell",
+    "year_introduced": 1941,
+    "top_speed": "272 mph (438 km/h)",
+    "primary_role": "Medium Bomber",
+    "image_url": "images/b25_poster.jpg"
+  },
+  {
+    "name": "De Havilland Mosquito",
+    "year_introduced": 1941,
+    "top_speed": "415 mph (668 km/h)",
+    "primary_role": "Multi-role Combat / Fast Bomber",
+    "image_url": "images/mosquito_poster.jpg"
+  }
+]

@@ -1,0 +1,438 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Stardos+Stencil:wght@400;700&family=Teko:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-stencil: "Stardos Stencil", "Courier New", monospace;
+  --font-typewriter: "Special Elite", "Courier New", monospace;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-teko: "Teko", sans-serif;
+  
+  --color-diesel-gold: #dfb743;
+  --color-diesel-brass: #c4af7d;
+  --color-diesel-rust: #b45309;
+  --color-diesel-crimson: #c24141;
+  --color-diesel-olive: #3f4739;
+  --color-diesel-slate: #07090e;
+}
+
+/* Base custom designs for WWII Tactical camouflage theme with Crimson Skies Xbox details */
+body {
+  font-family: var(--font-sans);
+  background-color: #141619; /* Dark brushed iron plates */
+  background-image: 
+    /* Vertical & horizontal metal panel seams */
+    linear-gradient(95deg, transparent 49.5%, rgba(0,0,0,0.85) 49.5%, rgba(0,0,0,0.95) 50%, rgba(255,255,255,0.06) 50.5%, transparent 50.5%),
+    linear-gradient(0deg, transparent 49.5%, rgba(0,0,0,0.85) 49.5%, rgba(0,0,0,0.95) 50%, rgba(255,255,255,0.06) 50.5%, transparent 50.5%),
+    /* Soft golden sunset sky glow watermark */
+    radial-gradient(circle at 50% -10%, rgba(239, 68, 68, 0.08) 0%, rgba(223, 183, 67, 0.04) 30%, transparent 70%);
+  background-size: 320px 240px, 320px 240px, 100% 100%;
+  color: #eed095;
+  overflow-x: hidden;
+}
+
+/* Polished metallic structural sheet panel */
+.warbird-panel {
+  background: linear-gradient(135deg, #2b3027 0%, #171a14 100%); /* Tactical Olive Drab metal base */
+  border: 5px solid #4a543f; /* Beveled solid olive-drab metal border */
+  border-top-color: #657357; /*Specular light reflect top border*/
+  border-left-color: #5b684e;
+  border-right-color: #3b4232;
+  border-bottom-color: #24291f; /*Deep metal shadow bottom border*/
+  border-radius: 14px;
+  box-shadow: 
+    0 25px 60px -15px rgba(0, 0, 0, 0.95),
+    inset 0 1px 3px rgba(255, 255, 255, 0.15), /* Bevel inner highlight */
+    inset 0 -6px 18px rgba(0, 0, 0, 0.9), /* Inner cockpit depth */
+    0 0 0 1px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+
+.warbird-panel-inner {
+  background-color: rgba(13, 16, 20, 0.9);
+  border: 2px solid #1a1c18;
+  border-top-color: #0c0e0b;
+  border-bottom-color: #32392b;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 
+    inset 0 4px 12px rgba(0,0,0,0.98), 
+    0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* Phillips steel screws in panel corners */
+.warbird-screws::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background-image: 
+    /* Phillips screw visual: Circle with top-left highlight and slotted cross */
+    /* Screw Top-Left */
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7) 0.5px, transparent 2px),
+    linear-gradient(45deg, transparent 42%, #0e110c 42%, #0e110c 58%, transparent 58%),
+    linear-gradient(-45deg, transparent 42%, #0e110c 42%, #0e110c 58%, transparent 58%),
+    radial-gradient(circle, #bfa56a 2px, #8a6d35 4.5px, #1e293b 6px, transparent 6.5px),
+    radial-gradient(circle, rgba(0,0,0,0.8) 6.5px, rgba(255,255,255,0.05) 7.5px, transparent 8px),
+    
+    /* Screw Top-Right */
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7) 0.5px, transparent 2px),
+    linear-gradient(45deg, transparent 42%, #0e110c 42%, #0e110c 58%, transparent 58%),
+    linear-gradient(-45deg, transparent 42%, #0e110c 42%, #0e110c 58%, transparent 58%),
+    radial-gradient(circle, #bfa56a 2px, #8a6d35 4.5px, #1e293b 6px, transparent 6.5px),
+    radial-gradient(circle, rgba(0,0,0,0.8) 6.5px, rgba(255,255,255,0.05) 7.5px, transparent 8px),
+
+    /* Screw Bottom-Left */
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7) 0.5px, transparent 2px),
+    linear-gradient(45deg, transparent 42%, #0e110c 42%, #0e110c 58%, transparent 58%),
+    linear-gradient(-45deg, transparent 42%, #0e110c 42%, #0e110c 58%, transparent 58%),
+    radial-gradient(circle, #bfa56a 2px, #8a6d35 4.5px, #1e293b 6px, transparent 6.5px),
+    radial-gradient(circle, rgba(0,0,0,0.8) 6.5px, rgba(255,255,255,0.05) 7.5px, transparent 8px),
+
+    /* Screw Bottom-Right */
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7) 0.5px, transparent 2px),
+    linear-gradient(45deg, transparent 42%, #0e110c 42%, #0e110c 58%, transparent 58%),
+    linear-gradient(-45deg, transparent 42%, #0e110c 42%, #0e110c 58%, transparent 58%),
+    radial-gradient(circle, #bfa56a 2px, #8a6d35 4.5px, #1e293b 6px, transparent 6.5px),
+    radial-gradient(circle, rgba(0,0,0,0.8) 6.5px, rgba(255,255,255,0.05) 7.5px, transparent 8px);
+
+  background-position: 
+    10px 10px, 10px 10px, 10px 10px, 10px 10px, 10px 10px,
+    calc(100% - 22px) 10px, calc(100% - 22px) 10px, calc(100% - 22px) 10px, calc(100% - 22px) 10px, calc(100% - 22px) 10px,
+    10px calc(100% - 22px), 10px calc(100% - 22px), 10px calc(100% - 22px), 10px calc(100% - 22px), 10px calc(100% - 22px),
+    calc(100% - 22px) calc(100% - 22px), calc(100% - 22px) calc(100% - 22px), calc(100% - 22px) calc(100% - 22px), calc(100% - 22px) calc(100% - 22px), calc(100% - 22px) calc(100% - 22px);
+
+  background-size: 
+    12px 12px, 12px 12px, 12px 12px, 12px 12px, 12px 12px,
+    12px 12px, 12px 12px, 12px 12px, 12px 12px, 12px 12px,
+    12px 12px, 12px 12px, 12px 12px, 12px 12px, 12px 12px,
+    12px 12px, 12px 12px, 12px 12px, 12px 12px, 12px 12px;
+
+  background-repeat: no-repeat;
+  z-index: 20;
+}
+
+/* Rows of physical 3D shiny aluminum rivets with specular light dots */
+.rivet-row-top {
+  position: absolute;
+  top: 6px;
+  left: 24px;
+  right: 24px;
+  height: 8px;
+  background-image: radial-gradient(circle at 30% 30%, #ffffff 0.5px, #e5e7eb 1.2px, #9ca3af 2.2px, #4b5563 2.8px, #111827 3.2px, transparent 3.5px);
+  background-size: 24px 8px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.95;
+}
+
+.rivet-row-bottom {
+  position: absolute;
+  bottom: 6px;
+  left: 24px;
+  right: 24px;
+  height: 8px;
+  background-image: radial-gradient(circle at 30% 30%, #ffffff 0.5px, #e5e7eb 1.2px, #9ca3af 2.2px, #4b5563 2.8px, #111827 3.2px, transparent 3.5px);
+  background-size: 24px 8px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.95;
+}
+
+/* Overlapping metal plates seams */
+.warbird-plate-joint-h {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to bottom, #090a0f 1px, rgba(255, 255, 255, 0.05) 2px);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.warbird-plate-joint-v {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to right, #090a0f 1px, rgba(255, 255, 255, 0.05) 2px);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Tactile 3D Embossed buttons (raised metal keys) */
+.skeuo-raised-box {
+  background: linear-gradient(180deg, #32353a 0%, #1e2024 100%);
+  border: 2px solid #5a5f6a;
+  border-top-color: #8c93a3;
+  border-left-color: #727b8d;
+  border-right-color: #2f333b;
+  border-bottom-color: #1a1c20;
+  box-shadow: 
+    0 6px 12px rgba(0,0,0,0.8),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+  border-radius: 8px;
+}
+
+.skeuo-push-btn {
+  background: linear-gradient(180deg, #d1d5db 0%, #a1a6b0 50%, #5c626d 100%);
+  border: 3px solid #6b7280;
+  border-top-color: #f3f4f6;
+  border-left-color: #e5e7eb;
+  border-right-color: #374151;
+  border-bottom-color: #1f2937;
+  color: #111827;
+  font-weight: bold;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+  box-shadow: 
+    0 4px 6px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  transition: all 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(0);
+}
+
+.skeuo-push-btn:active {
+  transform: translateY(2px);
+  background: linear-gradient(180deg, #9ca3af 0%, #5c626d 100%);
+  border-top-color: #1f2937;
+  border-left-color: #374151;
+  border-right-color: #e5e7eb;
+  border-bottom-color: #f3f4f6;
+  box-shadow: 
+    0 1px 2px rgba(0,0,0,0.9),
+    inset 0 3px 6px rgba(0,0,0,0.9);
+}
+
+/* Crimson Skies active tactical red raised button style */
+.skeuo-push-btn-red {
+  background: linear-gradient(180deg, #f87171 0%, #dc2626 50%, #991b1b 100%);
+  border: 3.5px solid #991b1b;
+  border-top-color: #fee2e2;
+  border-left-color: #fca5a5;
+  border-right-color: #7f1d1d;
+  border-bottom-color: #450a0a;
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+  box-shadow: 
+    0 6px 12px rgba(185, 28, 28, 0.35),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+  transition: all 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(0);
+}
+
+.skeuo-push-btn-red:active {
+  transform: translateY(2px);
+  background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+  border-top-color: #450a0a;
+  border-left-color: #7f1d1d;
+  border-right-color: #fca5a5;
+  border-bottom-color: #fee2e2;
+  box-shadow: 
+    0 1px 2px rgba(0,0,0,0.95),
+    inset 0 3px 8px rgba(0,0,0,0.95);
+}
+
+/* 3D Stamped lettering class updated to gold editorial shadow */
+.embossed-text-gold {
+  color: #eed095;
+  font-family: var(--font-stencil);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.9), 0 -1px 0 rgba(255,255,255,0.1);
+}
+
+.embossed-text-crimson {
+  color: #b91c1c;
+  font-family: var(--font-stencil);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.9), 0 -1px 0 rgba(255,255,255,0.1);
+}
+
+/* Analog Cockpit Dial gauge needle rotation styles */
+.dial-container {
+  background: radial-gradient(circle at 50% 50%, #151310 0%, #070605 100%);
+  border: 5px solid #362e24;
+  box-shadow: 
+    0 10px 25px rgba(0,0,0,0.9),
+    inset 0 4px 14px rgba(0,0,0,0.95),
+    0 0 0 1px rgba(238, 208, 149, 0.15);
+  border-radius: 50%;
+}
+
+/* Retro physical glowing light bulbs */
+.indicator-light {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #1a1612;
+  position: relative;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.indicator-light::before {
+  content: '';
+  position: absolute;
+  top: 1px; left: 1px; width: 3px; height: 3px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+}
+
+.light-green {
+  background-color: #10b981;
+  box-shadow: 0 0 12px #10b981, inset 0 1px 2px rgba(255,255,255,0.8);
+}
+
+.light-amber {
+  background-color: #f59e0b;
+  box-shadow: 0 0 12px #f59e0b, inset 0 1px 2px rgba(255,255,255,0.8);
+}
+
+.light-red {
+  background-color: #ef4444;
+  box-shadow: 0 0 12px #ef4444, inset 0 1px 2px rgba(255,255,255,0.8);
+}
+
+/* Typewriter ledgers and paperwork */
+.ledger-paper {
+  background-color: #f2e9d2;
+  color: #2b2317;
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.9), 
+    inset 0 0 60px rgba(139, 90, 43, 0.2);
+  border: 2px solid #cbb895;
+  border-radius: 6px;
+  background-image: repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 23px, rgba(139, 90, 43, 0.08) 24px, rgba(139, 90, 43, 0.08) 25px);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090807;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c5a059;
+  border: 2.5px solid #090807;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #eed095;
+}
+
+/* --- High-end Skeuomorphic Industrial UI & Vintage Military-Aviation --- */
+
+/* 3D-raised analog hardware metal box feel */
+.skeuo-raised-box {
+  background: linear-gradient(135deg, #1f251a 0%, #0f120d 100%);
+  border: 4px solid #363f2d;
+  border-top-color: #4e5c42;
+  border-left-color: #424e38;
+  border-right-color: #242a1e;
+  border-bottom-color: #141811;
+  box-shadow: 
+    0 16px 36px rgba(0, 0, 0, 0.95),
+    0 4px 8px rgba(0, 0, 0, 0.8),
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+/* 3D push buttons that visually depress when clicked/active */
+.skeuo-push-btn {
+  background: linear-gradient(to bottom, #3b4532 0%, #1e2419 100%);
+  border: 3px solid #4a573f;
+  border-top-color: #697c5a;
+  border-left-color: #5b6c4e;
+  border-right-color: #333c2b;
+  border-bottom-color: #1b2016;
+  box-shadow: 
+    0 6px 12px rgba(0,0,0,0.8),
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 0 0 1px rgba(0,0,0,0.6);
+  transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.skeuo-push-btn:hover {
+  background: linear-gradient(to bottom, #47543d 0%, #252d1f 100%);
+  border-top-color: #7b9169;
+  border-left-color: #6d815d;
+}
+
+.skeuo-push-btn:active, .skeuo-push-btn-active {
+  background: linear-gradient(to bottom, #11140e 0%, #20271b 100%) !important;
+  border-color: #20271b !important;
+  border-top-color: #0c0e0a !important;
+  border-left-color: #10130d !important;
+  box-shadow: 
+    0 2px 4px rgba(0,0,0,0.9),
+    inset 0 2px 6px rgba(0,0,0,0.95),
+    0 0 0 1px rgba(0,0,0,0.5) !important;
+  transform: translateY(2px);
+}
+
+/* Heavy toggle lever slot background */
+.skeuo-switch-slot {
+  width: 32px;
+  height: 16px;
+  background: #080a06;
+  border: 2px solid #20271b;
+  border-top-color: #0c0e0a;
+  border-left-color: #10130d;
+  border-bottom-color: #333c2b;
+  border-radius: 4px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.95);
+  position: relative;
+}
+
+/* Heavy copper/brass accent screw-head */
+.skeuo-screw-head {
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle at 35% 35%, #cbd5e1 0%, #64748b 60%, #1e293b 100%);
+  border: 1px solid #10130d;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.8), inset 0 0.5px 0.5px rgba(255,255,255,0.4);
+  position: relative;
+}
+
+.skeuo-screw-head::before {
+  content: '';
+  position: absolute;
+  top: 4.5px;
+  left: 1.5px;
+  right: 1.5px;
+  height: 1px;
+  background: #0e110c;
+}
+
+/* Heavy metal plate seam overlay */
+.skeuo-plate-seam-v {
+  background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(255,255,255,0.06) 50%, rgba(0,0,0,0.9) 100%);
+  width: 4px;
+}
+
+.skeuo-plate-seam-h {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(255,255,255,0.06) 50%, rgba(0,0,0,0.9) 100%);
+  height: 4px;
+}
+
+/* Retro CRT numerical indicator lines */
+.bg-scanlines {
+  background: repeating-linear-gradient(
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 1.5px,
+    rgba(0, 0, 0, 0.4) 1.5px,
+    rgba(0, 0, 0, 0.4) 3px
+  );
+}
+
+
+
