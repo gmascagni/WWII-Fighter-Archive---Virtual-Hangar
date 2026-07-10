@@ -184,6 +184,7 @@ export default function App() {
   const [fighterSubView, setFighterSubView] = useState<'photos' | 'cockpit' | 'specs' | 'media'>('photos');
   const [activeHotspot, setActiveHotspot] = useState<{ title: string; desc: string } | null>(null);
   const [showNoseArtDecal, setShowNoseArtDecal] = useState<boolean>(false);
+  const [showNoseArtCard, setShowNoseArtCard] = useState<boolean>(false);
   const [reconPhotoMode, setReconPhotoMode] = useState<'photo' | 'wireframe'>('photo');
   
   // State tracking image load failures to gracefully render SVG drafting blueprints
@@ -374,6 +375,16 @@ export default function App() {
           filter: "hue-rotate(325deg) sepia(0.3) saturate(1.3) brightness(0.15) contrast(1.15)"
         }}
       />
+      {/* Semi-transparent transparent watermark background of the active airplane */}
+      {activeTab === 'fighters' && focusedFighter && focusedFighter.posterUrl && !failedImages[focusedFighter.posterUrl] && (
+        <div 
+          className="fixed inset-0 pointer-events-none z-0 opacity-[0.08] bg-contain bg-center bg-no-repeat transition-all duration-1000 ease-in-out select-none"
+          style={{ 
+            backgroundImage: `url(${focusedFighter.posterUrl})`,
+            top: '80px',
+          }}
+        />
+      )}
       {/* Crimson Skies Cockpit Dashboard Header Banner */}
       <header className="relative w-full warbird-panel warbird-screws py-6 px-4 md:px-8 shadow-2xl rounded-none border-t-0 border-x-0 border-b-8">
         <div className="rivet-row-top" />
@@ -654,6 +665,18 @@ export default function App() {
                     <span className="font-stencil text-xs text-[#eed095] tracking-wider uppercase mb-3 block border-b border-white/10 pb-2 font-bold">
                       Select Aircraft Blueprint
                     </span>
+                    <div className="flex items-center gap-2 mb-3 px-1 text-[9px] font-mono text-stone-400 border-b border-stone-900/60 pb-2">
+                      <input 
+                        type="checkbox" 
+                        id="toggle-noseart-sidebar" 
+                        checked={showNoseArtCard} 
+                        onChange={(e) => { audioEngine.playClick(); setShowNoseArtCard(e.target.checked); }}
+                        className="cursor-pointer accent-[#b91c1c] w-3 h-3 rounded"
+                      />
+                      <label htmlFor="toggle-noseart-sidebar" className="cursor-pointer select-none tracking-wide uppercase hover:text-stone-300">
+                        Show Squadron Nose Art Card
+                      </label>
+                    </div>
                     <div className="flex flex-col gap-2.5 relative z-10">
                       {fighters.map((f) => (
                         <button
@@ -681,32 +704,34 @@ export default function App() {
                     <div className="rivet-row-bottom" />
                   </div>
 
-                  {/* Curated Historical Nose art and poster card */}
-                  <div className="warbird-panel warbird-screws p-5 relative overflow-hidden flex-1 min-h-[240px] flex flex-col justify-end">
-                    <div className="rivet-row-top" />
-                    {focusedFighter.posterUrl ? (
-                      <div className="absolute inset-0 bg-cover bg-center brightness-[0.35] saturate-[1.2] contrast-[1.05] transition-all duration-700" 
-                           style={{ backgroundImage: `url(${focusedFighter.posterUrl})` }} />
-                    ) : (
-                      <div className="absolute inset-0 bg-stone-950 flex items-center justify-center font-mono text-[9px] text-stone-600 border border-stone-800">
-                        NO VERIFIED RECON MEDIA
+                  {/* Curated Historical Nose art and poster card (Optional) */}
+                  {showNoseArtCard && (
+                    <div className="warbird-panel warbird-screws p-5 relative overflow-hidden flex-1 min-h-[240px] flex flex-col justify-end">
+                      <div className="rivet-row-top" />
+                      {focusedFighter.posterUrl ? (
+                        <div className="absolute inset-0 bg-cover bg-center brightness-[0.35] saturate-[1.2] contrast-[1.05] transition-all duration-700" 
+                             style={{ backgroundImage: `url(${focusedFighter.posterUrl})` }} />
+                      ) : (
+                        <div className="absolute inset-0 bg-stone-950 flex items-center justify-center font-mono text-[9px] text-stone-600 border border-stone-800">
+                          NO VERIFIED RECON MEDIA
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/50 to-transparent" />
+                      
+                      <div className="relative z-10 text-stone-100 font-mono text-xs">
+                        <span className="bg-diesel-crimson text-stone-100 font-bold px-2.5 py-0.5 rounded text-[9px] uppercase tracking-wider border border-[#363f2d]">
+                          SQUADRON NOSE ART
+                        </span>
+                        <h4 className="font-stencil text-sm text-[#f3c360] mt-2.5 tracking-wide uppercase font-bold">
+                          {focusedFighter.name}: {focusedFighter.noseArtName}
+                        </h4>
+                        <p className="text-[10px] text-stone-400 mt-1 leading-normal font-sans">
+                          Fighter planes were decorated with expressive hand-painted insignia to boost morale.
+                        </p>
                       </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/50 to-transparent" />
-                    
-                    <div className="relative z-10 text-stone-100 font-mono text-xs">
-                      <span className="bg-diesel-crimson text-stone-100 font-bold px-2.5 py-0.5 rounded text-[9px] uppercase tracking-wider border border-[#363f2d]">
-                        SQUADRON NOSE ART
-                      </span>
-                      <h4 className="font-stencil text-sm text-[#f3c360] mt-2.5 tracking-wide uppercase font-bold">
-                        {focusedFighter.name}: {focusedFighter.noseArtName}
-                      </h4>
-                      <p className="text-[10px] text-stone-400 mt-1 leading-normal font-sans">
-                        Fighter planes were decorated with expressive hand-painted insignia to boost morale.
-                      </p>
+                      <div className="rivet-row-bottom" />
                     </div>
-                    <div className="rivet-row-bottom" />
-                  </div>
+                  )}
                 </div>
 
                 {/* Core Blueprint Sheet & Interactive Cockpit Display */}

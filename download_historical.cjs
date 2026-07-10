@@ -14,8 +14,8 @@ const mappings = [
   // 1. P-51 Mustang
   { 
     local: 'p51_poster.jpg', 
-    title: 'File:P-51 Mustang edit1.jpg', 
-    search: 'P-51 Mustang in flight',
+    title: 'File:"Bottisham Four" - Four P-51 Mustangs fighters in flight.jpg', 
+    search: 'Bottisham Four P-51 Mustangs in flight',
     width: 1024 
   },
   { 

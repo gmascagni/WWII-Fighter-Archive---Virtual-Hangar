@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FlightLog } from '../types';
-import { BookOpen, Calendar, Clock, MapPin, Search, PlusCircle, Bookmark, Compass } from 'lucide-react';
+import { BookOpen, Calendar, Clock, MapPin, Search, PlusCircle, Bookmark, Compass, Radio } from 'lucide-react';
+import { audioEngine } from './AudioEngine';
 
 interface FlightLogsProps {
   logs: FlightLog[];
@@ -17,6 +18,39 @@ export default function FlightLogs({ logs, onAddNewLog }: FlightLogsProps) {
   const [selectedLog, setSelectedLog] = useState<FlightLog>(logs[0] || null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'Completed' | 'Engaged' | 'Aborted'>('ALL');
+
+  const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
+
+  // Cancel any ongoing narration if the selected log shifts
+  React.useEffect(() => {
+    if (isSpeaking) {
+      audioEngine.cancelSpeech();
+      setIsSpeaking(false);
+    }
+  }, [selectedLog]);
+
+  // Clean up narration on component unmount
+  React.useEffect(() => {
+    return () => {
+      audioEngine.cancelSpeech();
+    };
+  }, []);
+
+  const handleToggleSpeech = () => {
+    if (isSpeaking) {
+      audioEngine.cancelSpeech();
+      setIsSpeaking(false);
+    } else {
+      if (!selectedLog) return;
+      const text = `Sortie Report. Deployed Pilot: ${selectedLog.pilotName}. Deployed Aircraft: ${selectedLog.aircraftName}. Mission Type: ${selectedLog.mission}. Post-Flight Intelligence Memo reads: ${selectedLog.logText}`;
+      setIsSpeaking(true);
+      audioEngine.speakVintageRadio(
+        text,
+        () => {},
+        () => setIsSpeaking(false)
+      );
+    }
+  };
   
   // Custom Log Form State
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
@@ -329,7 +363,7 @@ export default function FlightLogs({ logs, onAddNewLog }: FlightLogsProps) {
             
             <div>
               {/* Ledger Header */}
-              <div className="flex justify-between items-start border-b-2 border-dashed border-stone-400/40 pb-4">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-dashed border-stone-400/40 pb-4 gap-3">
                 <div className="flex items-center gap-2">
                   <BookOpen className="w-5 h-5 text-stone-800 shrink-0" />
                   <div>
@@ -341,8 +375,35 @@ export default function FlightLogs({ logs, onAddNewLog }: FlightLogsProps) {
                     </h2>
                   </div>
                 </div>
-                <div className="font-typewriter text-xs text-stone-600 bg-stone-200/50 border border-stone-300 px-3 py-1 rounded">
-                  DATE: <strong>{selectedLog.date}</strong>
+                <div className="flex items-center gap-2">
+                  {/* Play radio dispatch voice narration button */}
+                  <button
+                    onClick={handleToggleSpeech}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded text-[9px] font-mono font-bold uppercase transition-all shadow border cursor-pointer ${
+                      isSpeaking
+                        ? 'bg-red-800 hover:bg-red-900 text-white border-red-950 shadow-[0_0_10px_rgba(185,28,28,0.4)] animate-pulse'
+                        : 'bg-[#faf6eb] hover:bg-stone-200 text-stone-900 border-stone-300'
+                    }`}
+                    title="Read log narrative via 1940s female radio dispatch"
+                  >
+                    {isSpeaking ? (
+                      <>
+                        <span className="relative flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                        </span>
+                        STOP RADIO
+                      </>
+                    ) : (
+                      <>
+                        <Radio className="w-3.5 h-3.5 text-stone-600" />
+                        PLAY NARRATIVE
+                      </>
+                    )}
+                  </button>
+                  <div className="font-typewriter text-xs text-stone-600 bg-stone-200/50 border border-stone-300 px-3 py-1 rounded">
+                    DATE: <strong>{selectedLog.date}</strong>
+                  </div>
                 </div>
               </div>
 

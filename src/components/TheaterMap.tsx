@@ -562,10 +562,59 @@ export default function TheaterMap({ fighterId, fighterName }: TheaterMapProps) 
   const [showFlightPath, setShowFlightPath] = useState(true);
   const [locationFilter, setLocationFilter] = useState<string>('all');
 
-  // Sync when fighter changes
+  // Zoom & Pan states for making the map fully scalable
+  const [zoom, setZoom] = useState<number>(1);
+  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  // Sync when fighter changes (reset zoom and selection)
   useEffect(() => {
     setSelectedLoc(theater.locations[0]);
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
   }, [fighterId]);
+
+  const handleMouseDown = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    if (zoom <= 1) return;
+    setIsDragging(true);
+    // Adjust drag start with current panning offset
+    setDragStart({ x: e.clientX - pan.x, y: e.clientY - pan.y });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    if (!isDragging) return;
+    setPan({
+      x: e.clientX - dragStart.x,
+      y: e.clientY - dragStart.y
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleZoomIn = () => {
+    audioEngine.playClick();
+    setZoom(prev => Math.min(prev + 0.25, 3.0));
+  };
+
+  const handleZoomOut = () => {
+    audioEngine.playClick();
+    setZoom(prev => {
+      const next = Math.max(prev - 0.25, 1);
+      if (next === 1) {
+        setPan({ x: 0, y: 0 });
+      }
+      return next;
+    });
+  };
+
+  const handleZoomReset = () => {
+    audioEngine.playClick();
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+  };
 
   const handleSelectLocation = (loc: MapLocation) => {
     audioEngine.playClick();
@@ -743,11 +792,41 @@ export default function TheaterMap({ fighterId, fighterName }: TheaterMapProps) 
         </div>
 
         {/* Action controls */}
-        <div className="flex flex-wrap gap-2 text-[10px] font-mono">
+        <div className="flex flex-wrap items-center gap-3 text-[10px] font-mono">
+          {/* Zoom controls */}
+          <div className="flex items-center bg-stone-950 border border-stone-850 rounded overflow-hidden h-[24px]">
+            <button
+              onClick={handleZoomOut}
+              disabled={zoom <= 1}
+              className="px-2.5 h-full text-stone-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-stone-900 transition-colors cursor-pointer border-r border-stone-800 font-bold"
+              title="Zoom Out"
+            >
+              Zoom -
+            </button>
+            <span className="px-2.5 h-full flex items-center text-[#eed095] font-bold select-none border-r border-stone-800 bg-stone-950/80 tracking-wider">
+              {Math.round(zoom * 100)}%
+            </span>
+            <button
+              onClick={handleZoomIn}
+              disabled={zoom >= 3.0}
+              className="px-2.5 h-full text-stone-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-stone-900 transition-colors cursor-pointer border-r border-stone-800 font-bold"
+              title="Zoom In"
+            >
+              Zoom +
+            </button>
+            <button
+              onClick={handleZoomReset}
+              className="px-2.5 h-full text-stone-400 hover:text-white hover:bg-stone-900 transition-colors cursor-pointer font-bold"
+              title="Reset Zoom"
+            >
+              Reset
+            </button>
+          </div>
+
           {/* Map display triggers */}
           <button
             onClick={() => { audioEngine.playClick(); setShowGrid(!showGrid); }}
-            className={`px-2 py-1 rounded border transition-colors uppercase font-stencil cursor-pointer ${
+            className={`px-2 py-1 h-[24px] rounded border transition-colors uppercase font-stencil cursor-pointer ${
               showGrid 
                 ? 'bg-diesel-brass/20 border-diesel-brass text-[#eed095]' 
                 : 'bg-stone-950 border-stone-800/80 text-stone-500'
@@ -757,7 +836,7 @@ export default function TheaterMap({ fighterId, fighterName }: TheaterMapProps) 
           </button>
           <button
             onClick={() => { audioEngine.playClick(); setRadarSweep(!radarSweep); }}
-            className={`px-2 py-1 rounded border transition-colors uppercase font-stencil cursor-pointer ${
+            className={`px-2 py-1 h-[24px] rounded border transition-colors uppercase font-stencil cursor-pointer ${
               radarSweep 
                 ? 'bg-diesel-brass/20 border-diesel-brass text-[#eed095]' 
                 : 'bg-stone-950 border-stone-800/80 text-stone-500'
@@ -767,7 +846,7 @@ export default function TheaterMap({ fighterId, fighterName }: TheaterMapProps) 
           </button>
           <button
             onClick={() => { audioEngine.playClick(); setShowFlightPath(!showFlightPath); }}
-            className={`px-2 py-1 rounded border transition-colors uppercase font-stencil cursor-pointer ${
+            className={`px-2 py-1 h-[24px] rounded border transition-colors uppercase font-stencil cursor-pointer ${
               showFlightPath 
                 ? 'bg-diesel-brass/20 border-diesel-brass text-[#eed095]' 
                 : 'bg-stone-950 border-stone-800/80 text-stone-500'
@@ -780,7 +859,7 @@ export default function TheaterMap({ fighterId, fighterName }: TheaterMapProps) 
           <select
             value={locationFilter}
             onChange={(e) => { audioEngine.playClick(); setLocationFilter(e.target.value); }}
-            className="bg-stone-950 border border-stone-800 text-[#eed095] rounded px-2 py-1 cursor-pointer focus:outline-none focus:border-diesel-brass text-[10px]"
+            className="bg-stone-950 border border-stone-800 text-[#eed095] rounded px-2 py-1 h-[24px] cursor-pointer focus:outline-none focus:border-diesel-brass text-[10px]"
           >
             <option value="all">ALL LOCATIONS</option>
             <option value="Base Airfield">BASE AIRFIELDS</option>
@@ -855,9 +934,17 @@ export default function TheaterMap({ fighterId, fighterName }: TheaterMapProps) 
           <div className="relative w-full h-full flex-1 z-10">
             <svg 
               viewBox="0 0 800 400" 
-              className="w-full h-full select-none animate-fade-in"
+              className={`w-full h-full select-none animate-fade-in ${zoom > 1 ? 'cursor-grab active:cursor-grabbing' : ''}`}
               id="theaters-vector-graphics"
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
             >
+              <g 
+                transform={zoom > 1 ? `translate(${pan.x}, ${pan.y}) scale(${zoom})` : undefined}
+                className="transition-transform duration-75 ease-out origin-center"
+              >
               {/* Antique Compass Rose */}
               <g transform="translate(100, 310) scale(0.65)" className="opacity-45 pointer-events-none">
                 <circle cx="0" cy="0" r="36" className="stroke-[#54432c]/50 fill-none stroke-[1]" />
@@ -931,12 +1018,12 @@ export default function TheaterMap({ fighterId, fighterName }: TheaterMapProps) 
               {/* Theater Landmass SVG Paths */}
               {renderTheaterVectorMap()}
 
-              {/* Connecting Tactical Flight Path */}
-              {showFlightPath && filteredLocations.length > 1 && (
+              {/* Connecting Tactical Flight Path - Always draws the full chronological route */}
+              {showFlightPath && theater.locations.length > 1 && (
                 <g>
-                  {filteredLocations.map((loc, idx) => {
+                  {theater.locations.map((loc, idx) => {
                     if (idx === 0) return null;
-                    const prevLoc = filteredLocations[idx - 1];
+                    const prevLoc = theater.locations[idx - 1];
                     const startX = (prevLoc.x / 100) * 800;
                     const startY = (prevLoc.y / 100) * 400;
                     const endX = (loc.x / 100) * 800;
@@ -950,7 +1037,7 @@ export default function TheaterMap({ fighterId, fighterName }: TheaterMapProps) 
                           y1={startY} 
                           x2={endX} 
                           y2={endY} 
-                          className="stroke-[#962d2d]/55 stroke-[1.5] transition-all"
+                          className="stroke-[#962d2d]/65 stroke-[1.75] transition-all"
                           strokeDasharray="4,4"
                         />
                         {/* Direction Arrow Vector */}
@@ -958,7 +1045,7 @@ export default function TheaterMap({ fighterId, fighterName }: TheaterMapProps) 
                           cx={(startX + endX) / 2} 
                           cy={(startY + endY) / 2} 
                           r="3" 
-                          className="fill-[#962d2d]/70" 
+                          className="fill-[#962d2d]/80" 
                         />
                       </g>
                     );
@@ -1052,7 +1139,8 @@ export default function TheaterMap({ fighterId, fighterName }: TheaterMapProps) 
                   </g>
                 );
               })}
-            </svg>
+            </g>
+          </svg>
           </div>
 
           {/* Map Color Legend */}
