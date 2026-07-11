@@ -153,6 +153,19 @@ export default function App() {
     if (savedCustomizations) {
       try {
         const customs = JSON.parse(savedCustomizations);
+        // Automatically clear any legacy local storage image overrides for newly updated planes
+        const legacyOutdated = ['b29-superfortress', 'b24-liberator', 'b25-mitchell', 'wellington-bomber', 'halifax-bomber', 'mosquito-bomber', 'supermarine-spitfire'];
+        let changed = false;
+        legacyOutdated.forEach(id => {
+          if (customs[id]) {
+            delete customs[id];
+            changed = true;
+          }
+        });
+        if (changed) {
+          localStorage.setItem('warbird_fighter_custom_images', JSON.stringify(customs));
+        }
+
         return fightersData.map(f => {
           if (customs[f.id]) {
             const updated = { ...f };
@@ -186,6 +199,12 @@ export default function App() {
   const [showNoseArtDecal, setShowNoseArtDecal] = useState<boolean>(false);
   const [showNoseArtCard, setShowNoseArtCard] = useState<boolean>(false);
   const [reconPhotoMode, setReconPhotoMode] = useState<'photo' | 'wireframe'>('photo');
+  const [classificationFilter, setClassificationFilter] = useState<'fighter' | 'bomber'>('fighter');
+  const [activePhotoType, setActivePhotoType] = useState<string>('aircraft');
+
+  useEffect(() => {
+    setActivePhotoType('aircraft');
+  }, [focusedFighter]);
   
   // State tracking image load failures to gracefully render SVG drafting blueprints
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
@@ -429,10 +448,16 @@ export default function App() {
           {/* CENTER/RIGHT: Audio & Nose Art Combo */}
           <div className="flex flex-wrap items-center justify-center gap-6">
             
-            {/* Interactive Cockpit Sound Console widget with Rounded Bezels */}
-            <div className="glass-panel px-4 py-2.5 flex items-center gap-4 relative">
-              <div className="absolute -top-2.5 left-4 px-2 bg-[#07090e] text-[8px] font-mono font-bold text-[#dfb743] tracking-wider uppercase border border-white/5 rounded">
+            {/* Interactive Cockpit Sound Console widget with Rounded Bezels and Hover Tooltip */}
+            <div className="glass-panel px-4 py-2.5 flex items-center gap-4 relative group">
+              <div className="absolute -top-2.5 left-4 px-2 bg-[#07090e] text-[8px] font-mono font-bold text-[#dfb743] tracking-wider uppercase border border-white/5 rounded select-none">
                 RECEIVER TUNING
+              </div>
+              
+              {/* Tooltip Hover Bubble */}
+              <div className="absolute opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 bg-stone-950/98 border-2 border-[#dfb743] p-3 rounded-lg shadow-2xl z-50 w-64 top-full mt-2.5 left-1/2 -translate-x-1/2 pointer-events-none font-mono text-[9.5px] text-stone-300 leading-relaxed border-t-4 border-t-[#dfb743]">
+                <span className="text-[#dfb743] font-bold block mb-1 uppercase tracking-wider text-[10px]">📻 Cockpit Audio Receiver</span>
+                Simulates a pilot's tactical radio link. Toggles ambient flight deck noise, reproducing either a British Rolls-Royce Merlin V12 or American twin Allison/Double Wasp engine hum.
               </div>
               
               {/* Toggle button */}
@@ -665,6 +690,39 @@ export default function App() {
                     <span className="font-stencil text-xs text-[#eed095] tracking-wider uppercase mb-3 block border-b border-white/10 pb-2 font-bold">
                       Select Aircraft Blueprint
                     </span>
+                    {/* Category Classification Selector (Fighters vs. Bombers) */}
+                    <div className="flex gap-2 mb-3">
+                      <button
+                        onClick={() => {
+                          audioEngine.playClick();
+                          setClassificationFilter('fighter');
+                          const firstFighter = fighters.find(f => !f.type || f.type === 'fighter');
+                          if (firstFighter) setFocusedFighter(firstFighter);
+                        }}
+                        className={`flex-1 py-1.5 px-2 rounded-lg font-stencil text-center tracking-wider text-[9px] font-bold uppercase transition-all shadow border cursor-pointer ${
+                          classificationFilter === 'fighter'
+                            ? 'bg-[#eed095] hover:bg-[#dfb743] text-stone-950 border-[#ca8a04]'
+                            : 'bg-stone-900/80 hover:bg-stone-850 text-stone-400 border-white/5'
+                        }`}
+                      >
+                        ✈ FIGHTERS
+                      </button>
+                      <button
+                        onClick={() => {
+                          audioEngine.playClick();
+                          setClassificationFilter('bomber');
+                          const firstBomber = fighters.find(f => f.type === 'bomber');
+                          if (firstBomber) setFocusedFighter(firstBomber);
+                        }}
+                        className={`flex-1 py-1.5 px-2 rounded-lg font-stencil text-center tracking-wider text-[9px] font-bold uppercase transition-all shadow border cursor-pointer ${
+                          classificationFilter === 'bomber'
+                            ? 'bg-[#eed095] hover:bg-[#dfb743] text-stone-950 border-[#ca8a04]'
+                            : 'bg-stone-900/80 hover:bg-stone-850 text-stone-400 border-white/5'
+                        }`}
+                      >
+                        💣 BOMBERS
+                      </button>
+                    </div>
                     <div className="flex items-center gap-2 mb-3 px-1 text-[9px] font-mono text-stone-400 border-b border-stone-900/60 pb-2">
                       <input 
                         type="checkbox" 
@@ -677,29 +735,34 @@ export default function App() {
                         Show Squadron Nose Art Card
                       </label>
                     </div>
-                    <div className="flex flex-col gap-2.5 relative z-10">
-                      {fighters.map((f) => (
-                        <button
-                          key={f.id}
-                          onClick={() => { audioEngine.playClick(); setFocusedFighter(f); }}
-                          className={`p-3 rounded-lg text-left transition-all border flex items-center gap-3 cursor-pointer ${
-                            focusedFighter.id === f.id
-                              ? 'skeuo-push-btn-red text-white border-2'
-                              : 'bg-slate-950/80 border-white/5 text-slate-300 hover:bg-slate-900/60'
-                          }`}
-                        >
-                          <div className={`w-3.5 h-3.5 rounded-full shrink-0 ${f.faction === 'allied' ? 'bg-blue-600 shadow-[0_0_8px_#2563eb]' : 'bg-red-600 shadow-[0_0_8px_#dc2626]'}`} />
-                          <div className="flex-1">
-                            <div className="font-stencil text-xs tracking-wider uppercase">{f.name}</div>
-                            <div className="font-mono text-[9px] opacity-75">{f.country} ({f.year})</div>
-                          </div>
-                          {f.isTuskegee && (
-                            <span className="bg-amber-500/20 text-[#eed095] font-bold px-2 py-0.5 rounded text-[8px] uppercase tracking-wider border border-[#bfa56a]/30">
-                              RED TAIL
-                            </span>
-                          )}
-                        </button>
-                      ))}
+                    <div className="flex flex-col gap-2.5 relative z-10 max-h-[480px] overflow-y-auto pr-1">
+                      {fighters
+                        .filter((f) => {
+                          const isBomber = f.type === 'bomber';
+                          return classificationFilter === 'bomber' ? isBomber : !isBomber;
+                        })
+                        .map((f) => (
+                          <button
+                            key={f.id}
+                            onClick={() => { audioEngine.playClick(); setFocusedFighter(f); }}
+                            className={`p-3 rounded-lg text-left transition-all border flex items-center gap-3 cursor-pointer ${
+                              focusedFighter.id === f.id
+                                ? 'skeuo-push-btn-red text-white border-2'
+                                : 'bg-slate-950/80 border-white/5 text-slate-300 hover:bg-slate-900/60'
+                            }`}
+                          >
+                            <div className={`w-3.5 h-3.5 rounded-full shrink-0 ${f.faction === 'allied' ? 'bg-blue-600 shadow-[0_0_8px_#2563eb]' : 'bg-red-600 shadow-[0_0_8px_#dc2626]'}`} />
+                            <div className="flex-1">
+                              <div className="font-stencil text-xs tracking-wider uppercase">{f.name}</div>
+                              <div className="font-mono text-[9px] opacity-75">{f.country} ({f.year})</div>
+                            </div>
+                            {f.isTuskegee && (
+                              <span className="bg-amber-500/20 text-[#eed095] font-bold px-2 py-0.5 rounded text-[8px] uppercase tracking-wider border border-[#bfa56a]/30">
+                                RED TAIL
+                              </span>
+                            )}
+                          </button>
+                        ))}
                     </div>
                     <div className="rivet-row-bottom" />
                   </div>
@@ -862,7 +925,7 @@ export default function App() {
 
                               {/* Art decal toggle switch */}
                               <button
-                                onClick={() => { audioEngine.playClick(); setShowNoseArtDecal(false); setActiveHotspot(null); }}
+                                onClick={() => { audioEngine.playClick(); setShowNoseArtDecal(false); setActivePhotoType('aircraft'); }}
                                 className="w-full md:w-auto bg-stone-900 hover:bg-stone-800 text-[#f3c360] font-stencil border-2 border-[#363f2d] text-[10px] tracking-widest font-bold py-2.5 px-4 rounded-lg uppercase shadow-xl transition-all flex items-center justify-center gap-2 relative z-10 active:scale-95 cursor-pointer"
                               >
                                 <Camera className="w-4 h-4 text-[#bfa56a]" />
@@ -902,22 +965,22 @@ export default function App() {
                             </div>
 
                             {reconPhotoMode === 'photo' ? (
-                              // 1. HISTORICAL PHOTO OPTION
-                              <div className="w-full h-full min-h-[440px] relative overflow-hidden flex flex-col justify-between p-4 bg-stone-950 rounded-xl border-2 border-[#363f2d] shadow-inner select-none">
+                              // 1. HISTORICAL PHOTO OPTION WITH MULTI-PHOTO GALLERY SUPPORT
+                              <div className="w-full h-full min-h-[460px] relative overflow-hidden flex flex-col justify-between p-4 bg-stone-950 rounded-xl border-2 border-[#363f2d] shadow-inner select-none">
                                 {/* Photo Title header */}
                                 <div className="flex justify-between items-center border-b border-stone-800/80 pb-2 relative z-10 font-mono text-[10px] mt-10">
                                   <span className="text-[#f3c360] font-stencil tracking-wider uppercase font-bold flex items-center gap-1.5">
                                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse border border-stone-950"></span>
-                                    HD HISTORICAL CAPTURE: {focusedFighter.name.toUpperCase()} (RECONNAISSANCE)
+                                    HD HISTORICAL CAPTURE: {focusedFighter.name.toUpperCase()} ({activePhotoType.toUpperCase()})
                                   </span>
                                   <span className="text-stone-500 font-bold bg-stone-950 px-2 py-0.5 rounded border border-stone-900/60">
-                                    REF: {focusedFighter.id.toUpperCase()}-RECON
+                                    REF: {focusedFighter.id.toUpperCase()}-{activePhotoType.toUpperCase()}
                                   </span>
                                 </div>
 
-                                {/* Main Recon Image */}
+                                {/* Main Historical Image Plate */}
                                 <div className="absolute inset-0 z-0 select-none flex items-center justify-center bg-stone-950">
-                                  {focusedFighter.posterUrl && !failedImages[focusedFighter.posterUrl] ? (
+                                  {activePhotoType === 'aircraft' && focusedFighter.posterUrl && !failedImages[focusedFighter.posterUrl] && (
                                     <div className="w-full h-full flex items-center justify-center bg-stone-950 relative overflow-hidden">
                                       <img
                                         src={focusedFighter.posterUrl}
@@ -934,9 +997,72 @@ export default function App() {
                                         tooltipAlign="right"
                                       />
                                     </div>
-                                  ) : (
+                                  )}
+                                  {activePhotoType === 'noseart' && focusedFighter.noseArtUrl && !failedImages[focusedFighter.noseArtUrl] && (
+                                    <div className="w-full h-full flex items-center justify-center bg-stone-950 relative overflow-hidden">
+                                      <img
+                                        src={focusedFighter.noseArtUrl}
+                                        alt={`${focusedFighter.name} Nose Art`}
+                                        referrerPolicy={focusedFighter.noseArtUrl.startsWith('http') ? 'no-referrer' : undefined}
+                                        className="w-full h-full object-contain select-none transition-all duration-500"
+                                        onError={() => setFailedImages(prev => ({ ...prev, [focusedFighter.noseArtUrl!]: true }))}
+                                      />
+                                      <PhotoAuthenticityBadge
+                                        isVerified={focusedFighter.noseArtVerified || false}
+                                        source={focusedFighter.noseArtSource || 'Allied Historical Archive'}
+                                        hasPhoto={true}
+                                        type="noseart"
+                                        tooltipAlign="right"
+                                      />
+                                    </div>
+                                  )}
+                                  {activePhotoType === 'cockpit' && focusedFighter.cockpitUrl && !failedImages[focusedFighter.cockpitUrl] && (
+                                    <div className="w-full h-full flex items-center justify-center bg-stone-950 relative overflow-hidden">
+                                      <img
+                                        src={focusedFighter.cockpitUrl}
+                                        alt={`${focusedFighter.name} Cockpit View`}
+                                        referrerPolicy={focusedFighter.cockpitUrl.startsWith('http') ? 'no-referrer' : undefined}
+                                        className="w-full h-full object-contain select-none transition-all duration-500"
+                                        onError={() => setFailedImages(prev => ({ ...prev, [focusedFighter.cockpitUrl!]: true }))}
+                                      />
+                                      <PhotoAuthenticityBadge
+                                        isVerified={focusedFighter.cockpitVerified || false}
+                                        source={focusedFighter.cockpitSource || 'Museum Exhibition Archive'}
+                                        hasPhoto={true}
+                                        type="cockpit"
+                                        tooltipAlign="right"
+                                      />
+                                    </div>
+                                  )}
+                                  {activePhotoType.startsWith('extra-') && (() => {
+                                    const idx = parseInt(activePhotoType.split('-')[1]);
+                                    const img = focusedFighter.extraImages?.[idx];
+                                    if (!img || failedImages[img.url]) return null;
+                                    return (
+                                      <div className="w-full h-full flex items-center justify-center bg-stone-950 relative overflow-hidden">
+                                        <img
+                                          src={img.url}
+                                          alt={img.title}
+                                          className="w-full h-full object-contain select-none transition-all duration-500 animate-fade-in"
+                                          onError={() => setFailedImages(prev => ({ ...prev, [img.url]: true }))}
+                                        />
+                                        <PhotoAuthenticityBadge
+                                          isVerified={true}
+                                          source="Allied Combined Intelligence Wing"
+                                          hasPhoto={true}
+                                          type="aircraft"
+                                          tooltipAlign="right"
+                                        />
+                                      </div>
+                                    );
+                                  })()}
+                                  {/* Fallback Placeholder */}
+                                  {((activePhotoType === 'aircraft' && failedImages[focusedFighter.posterUrl]) ||
+                                    (activePhotoType === 'noseart' && failedImages[focusedFighter.noseArtUrl]) ||
+                                    (activePhotoType === 'cockpit' && failedImages[focusedFighter.cockpitUrl]) ||
+                                    (activePhotoType.startsWith('extra-') && failedImages[focusedFighter.extraImages?.[parseInt(activePhotoType.split('-')[1]) || 0]?.url || ''])) && (
                                     <PhotoPlaceholder 
-                                      type="aircraft"
+                                      type={activePhotoType.startsWith('extra-') ? 'aircraft' : activePhotoType as any}
                                       name={focusedFighter.name}
                                       fighterId={focusedFighter.id}
                                       className="w-full h-full border-0 rounded-none bg-stone-950 p-4"
@@ -947,26 +1073,99 @@ export default function App() {
                                 </div>
 
                                 {/* Active view UI information details overlay */}
-                                <div className="relative z-10 flex flex-col md:flex-row justify-between items-end gap-4 mt-auto pt-48">
+                                <div className="relative z-10 flex flex-col justify-end gap-3 mt-auto pt-40">
+                                  {/* Horizontal Gallery Thumbnails */}
+                                  <div className="flex gap-3 overflow-x-auto py-2 px-3 bg-stone-900/90 rounded-lg border border-[#363f2d] scrollbar-thin scrollbar-thumb-stone-850">
+                                    <button
+                                      onClick={() => { audioEngine.playClick(); setActivePhotoType('aircraft'); }}
+                                      className={`flex-shrink-0 w-20 h-14 rounded border-2 overflow-hidden transition-all relative cursor-pointer ${
+                                        activePhotoType === 'aircraft' ? 'border-[#eed095] scale-95 shadow-[0_0_8px_rgba(238,208,149,0.4)]' : 'border-stone-800 opacity-60 hover:opacity-100'
+                                      }`}
+                                    >
+                                      {focusedFighter.posterUrl && !failedImages[focusedFighter.posterUrl] ? (
+                                        <img src={focusedFighter.posterUrl} className="w-full h-full object-cover" alt="Airframe" />
+                                      ) : (
+                                        <div className="w-full h-full bg-stone-950 flex items-center justify-center text-[7px] text-stone-500">N/A</div>
+                                      )}
+                                      <span className="absolute bottom-0 inset-x-0 bg-stone-950/90 text-[6px] font-mono text-center text-stone-300 py-0.5 uppercase">RECON</span>
+                                    </button>
+
+                                    <button
+                                      onClick={() => { audioEngine.playClick(); setActivePhotoType('noseart'); }}
+                                      className={`flex-shrink-0 w-20 h-14 rounded border-2 overflow-hidden transition-all relative cursor-pointer ${
+                                        activePhotoType === 'noseart' ? 'border-[#eed095] scale-95 shadow-[0_0_8px_rgba(238,208,149,0.4)]' : 'border-stone-800 opacity-60 hover:opacity-100'
+                                      }`}
+                                    >
+                                      {focusedFighter.noseArtUrl && !failedImages[focusedFighter.noseArtUrl] ? (
+                                        <img src={focusedFighter.noseArtUrl} className="w-full h-full object-cover" alt="Nose Art" />
+                                      ) : (
+                                        <div className="w-full h-full bg-stone-950 flex items-center justify-center text-[7px] text-stone-500">N/A</div>
+                                      )}
+                                      <span className="absolute bottom-0 inset-x-0 bg-stone-950/90 text-[6px] font-mono text-center text-stone-300 py-0.5 uppercase">NOSE ART</span>
+                                    </button>
+
+                                    <button
+                                      onClick={() => { audioEngine.playClick(); setActivePhotoType('cockpit'); }}
+                                      className={`flex-shrink-0 w-20 h-14 rounded border-2 overflow-hidden transition-all relative cursor-pointer ${
+                                        activePhotoType === 'cockpit' ? 'border-[#eed095] scale-95 shadow-[0_0_8px_rgba(238,208,149,0.4)]' : 'border-stone-800 opacity-60 hover:opacity-100'
+                                      }`}
+                                    >
+                                      {focusedFighter.cockpitUrl && !failedImages[focusedFighter.cockpitUrl] ? (
+                                        <img src={focusedFighter.cockpitUrl} className="w-full h-full object-cover" alt="Cockpit" />
+                                      ) : (
+                                        <div className="w-full h-full bg-stone-950 flex items-center justify-center text-[7px] text-stone-500">N/A</div>
+                                      )}
+                                      <span className="absolute bottom-0 inset-x-0 bg-stone-950/90 text-[6px] font-mono text-center text-stone-300 py-0.5 uppercase">COCKPIT</span>
+                                    </button>
+
+                                    {/* Dynamic Auxiliary Gallery Items (like P-47 Razorback) */}
+                                    {focusedFighter.extraImages?.map((img, idx) => {
+                                      const key = `extra-${idx}`;
+                                      return (
+                                        <button
+                                          key={key}
+                                          onClick={() => { audioEngine.playClick(); setActivePhotoType(key); }}
+                                          className={`flex-shrink-0 w-20 h-14 rounded border-2 overflow-hidden transition-all relative cursor-pointer ${
+                                            activePhotoType === key ? 'border-[#eed095] scale-95 shadow-[0_0_8px_rgba(238,208,149,0.4)]' : 'border-stone-800 opacity-60 hover:opacity-100'
+                                          }`}
+                                        >
+                                          {!failedImages[img.url] ? (
+                                            <img src={img.url} className="w-full h-full object-cover" alt={img.title} />
+                                          ) : (
+                                            <div className="w-full h-full bg-stone-950 flex items-center justify-center text-[7px] text-stone-500">N/A</div>
+                                          )}
+                                          <span className="absolute bottom-0 inset-x-0 bg-stone-950/90 text-[5px] font-mono text-center text-stone-300 py-0.5 uppercase tracking-tight leading-none text-ellipsis overflow-hidden whitespace-nowrap px-1">
+                                            {img.label}
+                                          </span>
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+
                                   <div className="bg-stone-950/95 border border-[#363f2d] p-3 rounded-lg flex-1 shadow-2xl backdrop-blur-md">
                                     <div className="font-mono text-xs">
                                       <span className="text-[#f3c360] font-stencil font-bold block uppercase tracking-wider text-[11px]">
-                                        🔎 DECLASSIFIED RECONNAISSANCE PHOTOGRAPHY
+                                        {activePhotoType === 'aircraft' && '🔎 DECLASSIFIED RECONNAISSANCE PHOTOGRAPHY'}
+                                        {activePhotoType === 'noseart' && '🛡️ SQUADRON MARKINGS & PAINT DECAL'}
+                                        {activePhotoType === 'cockpit' && '🎛️ COCKPIT INSTRUMENT PANEL CAPTURE'}
+                                        {activePhotoType.startsWith('extra-') && (() => {
+                                          const idx = parseInt(activePhotoType.split('-')[1]);
+                                          const img = focusedFighter.extraImages?.[idx];
+                                          return img ? `📸 HISTORICAL VARIANT: ${img.title.toUpperCase()}` : '📸 HISTORICAL PICTURE';
+                                        })()}
                                       </span>
                                       <p className="text-[10px] text-stone-300 mt-1.5 leading-relaxed font-sans">
-                                        Wartime tactical reconnaissance photograph of the <strong className="text-[#f3c360]">{focusedFighter.name}</strong>, declassified from the Allied Combined Air Fleet files. Used by flight staff for cockpit briefing and airframe identification before active sorties.
+                                        {activePhotoType === 'aircraft' && `Wartime tactical reconnaissance photograph of the ${focusedFighter.name}, declassified from the Allied Combined Air Fleet archives.`}
+                                        {activePhotoType === 'noseart' && (focusedFighter.noseArtDescription || `Close-up view of the historic squadron markings painted on ${focusedFighter.name}.`)}
+                                        {activePhotoType === 'cockpit' && `Flight deck controls, throttles, and dials inside the cockpit of the historic ${focusedFighter.name}.`}
+                                        {activePhotoType.startsWith('extra-') && (() => {
+                                          const idx = parseInt(activePhotoType.split('-')[1]);
+                                          const img = focusedFighter.extraImages?.[idx];
+                                          return img ? img.description : '';
+                                        })()}
                                       </p>
                                     </div>
                                   </div>
-
-                                  {/* Nose art toggle switch */}
-                                  <button
-                                    onClick={() => { audioEngine.playClick(); setShowNoseArtDecal(true); setActiveHotspot(null); }}
-                                    className="w-full md:w-auto bg-stone-900 hover:bg-stone-800 text-[#f3c360] font-stencil border border-[#363f2d] text-[9.5px] tracking-widest font-bold py-2.5 px-3.5 rounded uppercase shadow-xl transition-all flex items-center justify-center gap-1.5 relative z-10 active:scale-95 cursor-pointer shrink-0"
-                                  >
-                                    <Camera className="w-3.5 h-3.5 text-[#bfa56a]" />
-                                    NOSE ART ▶
-                                  </button>
                                 </div>
                               </div>
                             ) : (
@@ -997,23 +1196,20 @@ export default function App() {
                                       }`}
                                       title={hotspot.title}
                                     >
-                                      <span className="absolute inset-0 rounded-full bg-diesel-gold animate-ping opacity-30" />
-                                      <span className="font-mono text-[10px] font-bold">{idx + 1}</span>
+                                      <span className="text-[10px] font-bold">?</span>
                                     </button>
                                   </div>
                                 ))}
 
-                                {/* Floating Active view component detail box */}
                                 {activeHotspot && (
-                                  <div className="absolute bottom-[80px] left-3 right-3 sm:left-4 sm:right-auto sm:max-w-[420px] z-40 bg-stone-950/95 border-2 border-diesel-crimson p-3 rounded-lg shadow-2xl backdrop-blur-md font-mono text-xs animate-in fade-in slide-in-from-bottom-2 duration-300">
-                                    <div className="text-diesel-crimson font-bold uppercase tracking-wider flex items-center justify-between gap-1.5">
-                                      <span className="flex items-center gap-1.5">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-diesel-crimson animate-pulse"></span>
-                                        SYSTEM DETECT: {activeHotspot.title}
-                                      </span>
-                                      <button 
+                                  <div className="absolute bottom-4 left-4 right-4 z-40 bg-stone-950/95 border border-[#363f2d] p-3.5 rounded-lg shadow-2xl backdrop-blur-md max-w-md animate-fade-in">
+                                    <div className="flex justify-between items-start">
+                                      <h4 className="text-[#f3c360] font-stencil text-xs tracking-wider uppercase font-bold">
+                                        🎯 SYSTEM READOUT: {activeHotspot.title}
+                                      </h4>
+                                      <button
                                         onClick={() => { audioEngine.playClick(); setActiveHotspot(null); }}
-                                        className="text-stone-500 hover:text-stone-300 ml-2 font-sans font-bold cursor-pointer"
+                                        className="text-stone-500 hover:text-white text-xs cursor-pointer font-bold px-1"
                                       >
                                         ✕
                                       </button>
@@ -1040,7 +1236,6 @@ export default function App() {
                         )}
                       </motion.div>
                     )}
-
                     {fighterSubView === 'cockpit' && (
                       <motion.div
                         key="cockpit"

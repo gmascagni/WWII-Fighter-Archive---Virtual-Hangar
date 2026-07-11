@@ -1,5 +1,109 @@
 import { FighterAircraft, WireframeMesh } from '../types';
 
+// B-17 Flying Fortress Wireframe Mesh
+const b17Mesh: WireframeMesh = {
+  vertices: [
+    [0, 0, 2.0], [0, 0.4, 1.2], [0.3, 0.1, 1.2], [-0.3, 0.1, 1.2], [0, -0.4, 1.2],
+    [0, 0.1, -2.5], [0, 1.2, -2.3], [-4.5, 0.05, 0.2], [4.5, 0.05, 0.2], [-0.5, 0.1, 0.8],
+    [0.5, 0.1, 0.8], [-0.5, 0.1, -0.6], [0.5, 0.1, -0.6], [-1.2, 0.05, -2.2], [1.2, 0.05, -2.2]
+  ],
+  faces: [
+    [0, 1, 2], [0, 2, 4], [0, 4, 3], [0, 3, 1], [1, 2, 5], [1, 3, 5], [4, 2, 5], [4, 3, 5],
+    [5, 6, 9], [9, 7, 11], [10, 8, 12], [5, 13, 9], [5, 14, 9]
+  ]
+};
+
+// B-24 Liberator Mesh
+const b24Mesh: WireframeMesh = {
+  vertices: [
+    [0, 0, 1.8], [0, 0.45, 1.0], [0.35, 0.1, 1.0], [-0.35, 0.1, 1.0], [0, -0.45, 1.0],
+    [0, 0.1, -2.4], [-1.0, 0.8, -2.4], [1.0, 0.8, -2.4], [-4.8, 0.05, 0.1], [4.8, 0.05, 0.1],
+    [-0.5, 0.1, 0.6], [0.5, 0.1, 0.6], [-1.1, 0.05, -2.4], [1.1, 0.05, -2.4]
+  ],
+  faces: [
+    [0, 1, 2], [0, 2, 4], [0, 4, 3], [0, 3, 1], [1, 2, 5], [1, 3, 5], [4, 2, 5], [4, 3, 5],
+    [10, 8, 5], [11, 9, 5], [5, 12, 6], [5, 13, 7]
+  ]
+};
+
+// B-25 Mitchell Mesh
+const b25Mesh: WireframeMesh = {
+  vertices: [
+    [0, 0, 1.5], [0, 0.35, 0.8], [0.25, 0.1, 0.8], [-0.25, 0.1, 0.8], [0, -0.35, 0.8],
+    [0, 0.1, -2.0], [-0.8, 0.6, -2.0], [0.8, 0.6, -2.0], [-3.2, 0.05, 0.15], [3.2, 0.05, 0.15],
+    [-0.4, 0.08, 0.5], [0.4, 0.08, 0.5]
+  ],
+  faces: [
+    [0, 1, 2], [0, 2, 4], [0, 4, 3], [0, 3, 1], [1, 2, 5], [1, 3, 5], [4, 2, 5], [4, 3, 5],
+    [10, 8, 5], [11, 9, 5], [5, 6, 5], [5, 7, 5]
+  ]
+};
+
+// B-29 Superfortress Mesh
+const b29Mesh: WireframeMesh = {
+  vertices: [
+    [0, 0, 2.4], [0, 0.4, 1.6], [0.35, 0.1, 1.6], [-0.35, 0.1, 1.6], [0, -0.4, 1.6],
+    [0, 0.1, -3.0], [0, 1.5, -2.8], [-6.0, 0.05, 0.3], [6.0, 0.05, 0.3], [-0.6, 0.1, 1.0],
+    [0.6, 0.1, 1.0], [-1.6, 0.05, -2.7], [1.6, 0.05, -2.7]
+  ],
+  faces: [
+    [0, 1, 2], [0, 2, 4], [0, 4, 3], [0, 3, 1], [1, 2, 5], [1, 3, 5], [4, 2, 5], [4, 3, 5],
+    [5, 6, 9], [9, 7, 5], [10, 8, 5], [5, 11, 5], [5, 12, 5]
+  ]
+};
+
+// Avro Lancaster Mesh
+const lancasterMesh: WireframeMesh = {
+  vertices: [
+    [0, 0, 1.9], [0, 0.45, 1.1], [0.3, 0.1, 1.1], [-0.3, 0.1, 1.1], [0, -0.45, 1.1],
+    [0, 0.1, -2.6], [-0.9, 0.75, -2.6], [0.9, 0.75, -2.6], [-4.5, 0.05, 0.2], [4.5, 0.05, 0.2],
+    [-0.5, 0.1, 0.7], [0.5, 0.1, 0.7], [-1.2, 0.05, -2.4], [1.2, 0.05, -2.4]
+  ],
+  faces: [
+    [0, 1, 2], [0, 2, 4], [0, 4, 3], [0, 3, 1], [1, 2, 5], [1, 3, 5], [4, 2, 5], [4, 3, 5],
+    [10, 8, 5], [11, 9, 5], [5, 12, 6], [5, 13, 7]
+  ]
+};
+
+// Mosquito Mesh
+const mosquitoMesh: WireframeMesh = {
+  vertices: [
+    [0, 0, 1.4], [0, 0.35, 0.7], [0.2, 0.08, 0.7], [-0.2, 0.08, 0.7], [0, -0.3, 0.7],
+    [0, 0.05, -1.8], [0, 0.8, -1.7], [-2.4, 0.02, 0.15], [2.4, 0.02, 0.15], [-0.3, 0.05, 0.45],
+    [0.3, 0.05, 0.45]
+  ],
+  faces: [
+    [0, 1, 2], [0, 2, 4], [0, 4, 3], [0, 3, 1], [1, 2, 5], [1, 3, 5], [4, 2, 5], [4, 3, 5],
+    [5, 6, 5], [9, 7, 5], [10, 8, 5]
+  ]
+};
+
+// Halifax Mesh
+const halifaxMesh: WireframeMesh = {
+  vertices: [
+    [0, 0, 1.8], [0, 0.4, 1.0], [0.3, 0.1, 1.0], [-0.3, 0.1, 1.0], [0, -0.4, 1.0],
+    [0, 0.1, -2.5], [-0.9, 0.7, -2.5], [0.9, 0.7, -2.5], [-4.4, 0.05, 0.2], [4.4, 0.05, 0.2],
+    [-0.5, 0.1, 0.7], [0.5, 0.1, 0.7]
+  ],
+  faces: [
+    [0, 1, 2], [0, 2, 4], [0, 4, 3], [0, 3, 1], [1, 2, 5], [1, 3, 5], [4, 2, 5], [4, 3, 5],
+    [10, 8, 5], [11, 9, 5]
+  ]
+};
+
+// Wellington Mesh
+const wellingtonMesh: WireframeMesh = {
+  vertices: [
+    [0, 0, 1.5], [0, 0.35, 0.8], [0.25, 0.1, 0.8], [-0.25, 0.1, 0.8], [0, -0.35, 0.8],
+    [0, 0.1, -2.1], [0, 0.9, -2.0], [-3.6, 0.05, 0.15], [3.6, 0.05, 0.15], [-0.4, 0.08, 0.5],
+    [0.4, 0.08, 0.5]
+  ],
+  faces: [
+    [0, 1, 2], [0, 2, 4], [0, 4, 3], [0, 3, 1], [1, 2, 5], [1, 3, 5], [4, 2, 5], [4, 3, 5],
+    [9, 7, 5], [10, 8, 5]
+  ]
+};
+
 // Let's design distinctive wireframe meshes for the 5 fighters
 
 // P-51 Mustang wireframe: Sleek, low-wing monoplane
@@ -300,7 +404,21 @@ export const fightersData: FighterAircraft[] = [
   {
     id: 'p51-mustang',
     name: 'P-51 Mustang',
-    nickname: 'Red Tails / Cadillacs of the Sky',
+
+    extraImages: [
+      {
+            'url': 'images/p51-mustang_extra_0.jpg',
+            'title': 'P-51 Mustang in flight',
+            'description': 'Historical action shot of the P-51 Mustang captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/p51-mustang_extra_1.jpg',
+            'title': 'P-51 Mustang on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the P-51 Mustang parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'Red Tails / Cadillacs of the Sky',
     country: 'United States',
     faction: 'allied',
     year: 1940,
@@ -330,7 +448,21 @@ export const fightersData: FighterAircraft[] = [
       {
         id: 'benjamin-o-davis',
         name: 'Benjamin O. Davis Jr.',
-        rank: 'Colonel (later Brigadier General)',
+
+    extraImages: [
+      {
+            'url': 'images/benjamin-o-davis_extra_0.jpg',
+            'title': 'Benjamin O. Davis Jr. in flight',
+            'description': 'Historical action shot of the Benjamin O. Davis Jr. captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/benjamin-o-davis_extra_1.jpg',
+            'title': 'Benjamin O. Davis Jr. on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the Benjamin O. Davis Jr. parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],        rank: 'Colonel (later Brigadier General)',
         yearsOfService: '1936 - 1970',
         kills: 1,
         medals: ['Distinguished Service Medal', 'Silver Star', 'Legion of Merit', 'Distinguished Flying Cross'],
@@ -370,7 +502,15 @@ export const fightersData: FighterAircraft[] = [
       {
         id: 'charles-b-hall',
         name: 'Charles B. Hall',
-        rank: 'Major',
+
+    extraImages: [
+      {
+            'url': 'images/charles-b-hall_extra_0.jpg',
+            'title': 'Charles B. Hall in flight',
+            'description': 'Historical action shot of the Charles B. Hall captured during active aerial operations.',
+            'label': 'FLIGHT'
+      }
+],        rank: 'Major',
         yearsOfService: '1941 - 1946',
         kills: 3,
         medals: ['Distinguished Flying Cross', 'Purple Heart'],
@@ -418,7 +558,21 @@ export const fightersData: FighterAircraft[] = [
   {
     id: 'spitfire-mkix',
     name: 'Supermarine Spitfire Mk IX',
-    nickname: 'The Graceful Defender',
+
+    extraImages: [
+      {
+            'url': 'images/spitfire-mkix_extra_0.jpg',
+            'title': 'Supermarine Spitfire Mk IX in flight',
+            'description': 'Historical action shot of the Supermarine Spitfire Mk IX captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/spitfire-mkix_extra_1.jpg',
+            'title': 'Supermarine Spitfire Mk IX on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the Supermarine Spitfire Mk IX parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'The Graceful Defender',
     country: 'Great Britain',
     faction: 'allied',
     isTuskegee: false,
@@ -448,7 +602,21 @@ export const fightersData: FighterAircraft[] = [
       {
         id: 'douglas-bader',
         name: 'Douglas Bader',
-        rank: 'Wing Commander',
+
+    extraImages: [
+      {
+            'url': 'images/douglas-bader_extra_0.jpg',
+            'title': 'Douglas Bader in flight',
+            'description': 'Historical action shot of the Douglas Bader captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/douglas-bader_extra_1.jpg',
+            'title': 'Douglas Bader on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the Douglas Bader parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],        rank: 'Wing Commander',
         yearsOfService: '1928 - 1946',
         kills: 22,
         medals: ['Distinguished Service Order (with Bar)', 'Distinguished Flying Cross (with Bar)'],
@@ -478,7 +646,21 @@ export const fightersData: FighterAircraft[] = [
   {
     id: 'p38-lightning',
     name: 'P-38 Lightning',
-    nickname: 'The Fork-Tailed Devil',
+
+    extraImages: [
+      {
+            'url': 'images/p38-lightning_extra_0.jpg',
+            'title': 'P-38 Lightning in flight',
+            'description': 'Historical action shot of the P-38 Lightning captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/p38-lightning_extra_1.jpg',
+            'title': 'P-38 Lightning on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the P-38 Lightning parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'The Fork-Tailed Devil',
     country: 'United States',
     faction: 'allied',
     isTuskegee: false,
@@ -508,7 +690,15 @@ export const fightersData: FighterAircraft[] = [
       {
         id: 'richard-bong',
         name: 'Richard "Dick" Bong',
-        rank: 'Major',
+
+    extraImages: [
+      {
+            'url': 'images/richard-bong_extra_0.jpg',
+            'title': 'Richard \'Dick\' Bong in flight',
+            'description': 'Historical action shot of the Richard \'Dick\' Bong captured during active aerial operations.',
+            'label': 'FLIGHT'
+      }
+],        rank: 'Major',
         yearsOfService: '1941 - 1945',
         kills: 40,
         medals: ['Medal of Honor', 'Distinguished Service Cross', 'Silver Star'],
@@ -538,7 +728,21 @@ export const fightersData: FighterAircraft[] = [
   {
     id: 'f6f-hellcat',
     name: 'F6F Hellcat',
-    nickname: 'The Ace Maker',
+
+    extraImages: [
+      {
+            'url': 'images/f6f-hellcat_extra_0.jpg',
+            'title': 'F6F Hellcat in flight',
+            'description': 'Historical action shot of the F6F Hellcat captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/f6f-hellcat_extra_1.jpg',
+            'title': 'F6F Hellcat on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the F6F Hellcat parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'The Ace Maker',
     country: 'United States',
     faction: 'allied',
     isTuskegee: false,
@@ -568,7 +772,15 @@ export const fightersData: FighterAircraft[] = [
       {
         id: 'david-mccampbell',
         name: 'David McCampbell',
-        rank: 'Commander',
+
+    extraImages: [
+      {
+            'url': 'images/david-mccampbell_extra_0.jpg',
+            'title': 'David McCampbell in flight',
+            'description': 'Historical action shot of the David McCampbell captured during active aerial operations.',
+            'label': 'FLIGHT'
+      }
+],        rank: 'Commander',
         yearsOfService: '1933 - 1964',
         kills: 34,
         medals: ['Medal of Honor', 'Navy Cross', 'Silver Star', 'Legion of Merit', 'Distinguished Flying Cross'],
@@ -603,7 +815,7 @@ export const fightersData: FighterAircraft[] = [
     faction: 'allied',
     isTuskegee: false,
     year: 1942,
-    posterUrl: 'images/p47_poster.jpg',
+    posterUrl: 'images/p47_poster_v2.jpg',
     posterVerified: true,
     posterSource: 'Wikimedia Commons / US Army Air Forces Photographic Collection (1944)',
     noseArtUrl: 'images/p47_noseart.jpg',
@@ -614,6 +826,14 @@ export const fightersData: FighterAircraft[] = [
     cockpitUrl: 'images/p47_cockpit.jpg',
     cockpitVerified: true,
     cockpitSource: 'Wikimedia Commons / Francis Gabreski Personal Archive (1944)',
+    extraImages: [
+      {
+        url: 'images/p47_razorback.jpg',
+        title: 'P-47D Thunderbolt "Razorback" Variant',
+        description: 'An early production P-47D "Razorback" variant, characterized by the high rear canopy deck sloping down to the tail assembly.',
+        label: 'RAZORBACK'
+      }
+    ],
     description: 'The Republic P-47 Thunderbolt was one of the largest and heaviest fighter aircraft in history to be powered by a single piston engine. Nicknamed "The Jug" due to its milk-jug shape, it was an incredibly durable aircraft. Its heavily armored cockpit and powerful Pratt & Whitney radial engine allowed it to survive immense damage, making it a premier ground-attack platform and high-altitude escort.',
     specs: {
       maxSpeed: '433 mph (697 km/h)',
@@ -628,7 +848,21 @@ export const fightersData: FighterAircraft[] = [
       {
         id: 'francis-gabreski',
         name: 'Francis Gabreski',
-        rank: 'Lieutenant Colonel',
+
+    extraImages: [
+      {
+            'url': 'images/francis-gabreski_extra_0.jpg',
+            'title': 'Francis Gabreski in flight',
+            'description': 'Historical action shot of the Francis Gabreski captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/francis-gabreski_extra_1.jpg',
+            'title': 'Francis Gabreski on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the Francis Gabreski parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],        rank: 'Lieutenant Colonel',
         yearsOfService: '1940 - 1967',
         kills: 28,
         medals: ['Distinguished Service Cross', 'Silver Star', 'Distinguished Flying Cross', 'Bronze Star', 'Air Medal'],
@@ -658,7 +892,21 @@ export const fightersData: FighterAircraft[] = [
   {
     id: 'p40-warhawk',
     name: 'P-40 Warhawk',
-    nickname: 'The Flying Tiger',
+
+    extraImages: [
+      {
+            'url': 'images/p40-warhawk_extra_0.jpg',
+            'title': 'P-40 Warhawk in flight',
+            'description': 'Historical action shot of the P-40 Warhawk captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/p40-warhawk_extra_1.jpg',
+            'title': 'P-40 Warhawk on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the P-40 Warhawk parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'The Flying Tiger',
     country: 'United States',
     faction: 'allied',
     isTuskegee: false,
@@ -718,7 +966,21 @@ export const fightersData: FighterAircraft[] = [
   {
     id: 'f8f-bearcat',
     name: 'F8F Bearcat',
-    nickname: 'The Ultimate Prop-Jet',
+
+    extraImages: [
+      {
+            'url': 'images/f8f-bearcat_extra_0.jpg',
+            'title': 'F8F Bearcat in flight',
+            'description': 'Historical action shot of the F8F Bearcat captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/f8f-bearcat_extra_1.jpg',
+            'title': 'F8F Bearcat on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the F8F Bearcat parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'The Ultimate Prop-Jet',
     country: 'United States',
     faction: 'allied',
     isTuskegee: false,
@@ -748,7 +1010,15 @@ export const fightersData: FighterAircraft[] = [
       {
         id: 'al-williams',
         name: 'Roy "Butch" Voris',
-        rank: 'Commander',
+
+    extraImages: [
+      {
+            'url': 'images/al-williams_extra_0.jpg',
+            'title': 'Roy \'Butch\' Voris in flight',
+            'description': 'Historical action shot of the Roy \'Butch\' Voris captured during active aerial operations.',
+            'label': 'FLIGHT'
+      }
+],        rank: 'Commander',
         yearsOfService: '1941 - 1963',
         kills: 8,
         medals: ['Legion of Merit', 'Distinguished Flying Cross (3)', 'Air Medal (11)'],
@@ -778,12 +1048,26 @@ export const fightersData: FighterAircraft[] = [
   {
     id: 'f4u-corsair',
     name: 'F4U Corsair',
-    nickname: 'Whistling Death',
+
+    extraImages: [
+      {
+            'url': 'images/f4u-corsair_extra_0.jpg',
+            'title': 'F4U Corsair in flight',
+            'description': 'Historical action shot of the F4U Corsair captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/f4u-corsair_extra_1.jpg',
+            'title': 'F4U Corsair on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the F4U Corsair parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'Whistling Death',
     country: 'United States',
     faction: 'allied',
     isTuskegee: false,
     year: 1942,
-    posterUrl: 'images/f4u_poster.jpg',
+    posterUrl: 'images/f4u_poster_v2.jpg',
     posterVerified: true,
     posterSource: 'Wikimedia Commons / Smithsonian National Air and Space Museum',
     noseArtUrl: 'images/f4u_noseart.jpg',
@@ -808,7 +1092,21 @@ export const fightersData: FighterAircraft[] = [
       {
         id: 'pappy-boyington',
         name: 'Gregory "Pappy" Boyington',
-        rank: 'Major',
+
+    extraImages: [
+      {
+            'url': 'images/pappy-boyington_extra_0.jpg',
+            'title': 'Gregory \'Pappy\' Boyington in flight',
+            'description': 'Historical action shot of the Gregory \'Pappy\' Boyington captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/pappy-boyington_extra_1.jpg',
+            'title': 'Gregory \'Pappy\' Boyington on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the Gregory \'Pappy\' Boyington parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],        rank: 'Major',
         yearsOfService: '1936 - 1947',
         kills: 26,
         medals: ['Medal of Honor', 'Navy Cross', 'Purple Heart'],
@@ -835,4 +1133,674 @@ export const fightersData: FighterAircraft[] = [
       }
     ]
   }
+,
+  {
+    id: 'b17-flyingfortress',
+    name: 'B-17F Flying Fortress',
+
+    extraImages: [
+      {
+            'url': 'images/b17-flyingfortress_extra_0.jpg',
+            'title': 'B-17F Flying Fortress in flight',
+            'description': 'Historical action shot of the B-17F Flying Fortress captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/b17-flyingfortress_extra_1.jpg',
+            'title': 'B-17F Flying Fortress on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the B-17F Flying Fortress parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'Memphis Belle',
+    country: 'United States',
+    faction: 'allied',
+    year: 1942,
+    type: 'bomber',
+    description: 'The Boeing B-17 Flying Fortress is the iconic heavy bomber of the United States Army Air Forces. Renowned for its extreme ruggedness and structural durability, the B-17 was capable of absorbing massive battle damage and returning home. Equipped with 13 defensive machine guns and carrying up to 8,000 lbs of bombs, it formed the backbone of the daylight precision bombing campaign over Nazi Germany.',
+    specs: {
+      maxSpeed: '287 mph (462 km/h)',
+      armament: '13 × .50 in (12.7 mm) M2 Browning machine guns; up to 8,000 lbs of ordnance',
+      range: '2,000 miles (3,219 km) combat range',
+      engine: '4 × Wright R-1820-97 Cyclone radial engines (1,200 hp each)',
+      wingspan: '103 ft 9 in (31.6 m)',
+      emptyWeight: '36,135 lbs (16,391 kg)'
+    },
+    posterUrl: 'images/b17_poster.jpg',
+    posterVerified: true,
+    posterSource: 'US Army Air Forces / Boeing Historical Archive (1942)',
+    noseArtUrl: 'images/b17_noseart.jpg',
+    noseArtName: 'Memphis Belle Pin-up',
+    noseArtVerified: true,
+    noseArtSource: 'Tenth Air Force Archive (1943)',
+    noseArtDescription: 'The legendary "Memphis Belle" features a classic red swimsuit pin-up girl painted on the left side of the forward nose fuselage, symbolizing the crew\'s mascot during 25 hazardous missions over Europe.',
+    cockpitUrl: 'images/b17_cockpit.jpg',
+    cockpitVerified: true,
+    cockpitSource: 'National Museum of the USAF',
+    wireframeMesh: b17Mesh,
+    isTuskegee: false,
+    pilotStories: [
+      {
+        id: 'robert-morgan',
+        name: 'Robert K. Morgan',
+
+    extraImages: [
+      {
+            'url': 'images/robert-morgan_extra_0.jpg',
+            'title': 'Robert K. Morgan in flight',
+            'description': 'Historical action shot of the Robert K. Morgan captured during active aerial operations.',
+            'label': 'FLIGHT'
+      }
+],        rank: 'Captain',
+        yearsOfService: '1941 - 1965',
+        kills: 0,
+        medals: ['Distinguished Flying Cross', 'Air Medal with 3 Oak Leaf Clusters'],
+        isTuskegee: false,
+        photoUrl: 'images/pilot_benjamin_o_davis.jpg',
+        photoVerified: false,
+        photoSource: 'USAAF Public Domain',
+        quote: 'We were just ten guys from different parts of the country trying to get through the war in one piece.',
+        bio: 'Captain Robert Morgan was the pilot of the famous "Memphis Belle," leading his crew to become one of the first USAAF heavy bomber crews to complete 25 combat missions in the European Theater without losing a single man, returning to the US to promote war bonds.'
+      }
+    ],
+    flightLogs: [
+      {
+        id: 'log-b17-01',
+        date: '1943-05-17',
+        pilotName: 'Capt. Robert Morgan',
+        aircraftName: 'B-17F Memphis Belle',
+        mission: 'Bombing Raid on Lorient Submarine Pens',
+        duration: '7h 15m',
+        logText: 'Sortie targeting submarine dry docks on the French coast. Met heavy flak over target zone. Starboard inner engine hit by shrapnel, feathering prop. Attacked by Fw 190s on return leg; waist gunners scored hit on one bandit. Landed safely with 40 shrapnel holes in fuselage.',
+        status: 'Completed',
+        location: 'Lorient, France',
+        airbase: 'RAF Bassingbourn, England'
+      }
+    ]
+  },
+  {
+    id: 'b24-liberator',
+    name: 'B-24D Liberator',
+
+    extraImages: [
+      {
+            'url': 'images/b24-liberator_extra_0.jpg',
+            'title': 'B-24D Liberator in flight',
+            'description': 'Historical action shot of the B-24D Liberator captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/b24-liberator_extra_1.jpg',
+            'title': 'B-24D Liberator on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the B-24D Liberator parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'Strawberry Bitch',
+    country: 'United States',
+    faction: 'allied',
+    year: 1941,
+    type: 'bomber',
+    description: 'The Consolidated B-24 Liberator was the most produced American military aircraft of WWII. Featuring the revolutionary high-aspect ratio Davis wing and dual tail design, it had a higher top speed, longer range, and heavier bomb load than the B-17, though it was less forgiving to fly and less durable under heavy gunfire.',
+    specs: {
+      maxSpeed: '290 mph (467 km/h)',
+      armament: '10 × .50 in (12.7 mm) M2 Browning machine guns; up to 8,800 lbs of bombs',
+      range: '2,100 miles (3,379 km) combat range',
+      engine: '4 × Pratt & Whitney R-1830-43 Twin Wasp radial engines (1,200 hp each)',
+      wingspan: '110 ft 0 in (33.5 m)',
+      emptyWeight: '36,500 lbs (16,556 kg)'
+    },
+    posterUrl: 'images/b24_poster.jpg',
+    posterVerified: true,
+    posterSource: 'Consolidated Aircraft Archive (1942)',
+    noseArtUrl: 'images/b24_noseart.jpg',
+    noseArtName: 'Strawberry Bitch Pin-up',
+    noseArtVerified: true,
+    noseArtSource: 'National Museum of the USAF',
+    noseArtDescription: 'Strawberry Bitch features a green-clad pin-up girl on the nose cowl, representative of the colorful nose artwork painted by USAAF bomber crews to decorate their airframe skin.',
+    cockpitUrl: 'images/b24_cockpit.jpg',
+    cockpitVerified: true,
+    cockpitSource: 'Historical Wings Archive',
+    wireframeMesh: b24Mesh,
+    isTuskegee: false,
+    pilotStories: [
+      {
+        id: 'john-joseph',
+        name: 'John R. Joseph',
+
+    extraImages: [
+      {
+            'url': 'images/john-joseph_extra_0.jpg',
+            'title': 'John R. Joseph in flight',
+            'description': 'Historical action shot of the John R. Joseph captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/john-joseph_extra_1.jpg',
+            'title': 'John R. Joseph on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the John R. Joseph parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],        rank: '1st Lieutenant',
+        yearsOfService: '1942 - 1945',
+        kills: 0,
+        medals: ['Silver Star', 'Purple Heart'],
+        isTuskegee: false,
+        photoUrl: 'images/pilot_pappy_boyington.jpg',
+        photoVerified: false,
+        photoSource: 'USAAF Historical File',
+        quote: 'The Davis wing kept us flying high, but she was a beast to steer when the controls got shot up.',
+        bio: 'First Lieutenant John Joseph served as a pilot in the Pacific Theater, executing long-range maritime bombing strikes and low-altitude supply runs over jungle coordinates.'
+      }
+    ],
+    flightLogs: [
+      {
+        id: 'log-b24-01',
+        date: '1943-08-01',
+        pilotName: '1st Lt. John Joseph',
+        aircraftName: 'B-24D Strawberry Bitch',
+        mission: 'Operation Tidal Wave - Ploesti Oil Refineries',
+        duration: '9h 30m',
+        logText: 'Long-range low-level strike against oil refineries in Ploesti, Romania. Flew at tree-top level to evade radar. Encountered intense light flak. Bomb bay doors damaged by ground fire. Returned with heavy fuel leakage.',
+        status: 'Completed',
+        location: 'Ploesti, Romania',
+        airbase: 'Benghazi Airfield, Libya'
+      }
+    ]
+  },
+  {
+    id: 'b25-mitchell',
+    name: 'B-25J Mitchell',
+
+    extraImages: [
+      {
+            'url': 'images/b25-mitchell_extra_0.jpg',
+            'title': 'B-25J Mitchell in flight',
+            'description': 'Historical action shot of the B-25J Mitchell captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/b25-mitchell_extra_1.jpg',
+            'title': 'B-25J Mitchell on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the B-25J Mitchell parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'Apache Princess',
+    country: 'United States',
+    faction: 'allied',
+    year: 1941,
+    type: 'bomber',
+    description: 'The North American B-25 Mitchell was a highly versatile twin-engine medium bomber, named in honor of aviation pioneer General Billy Mitchell. It achieved fame during the Doolittle Raid of 1942, taking off from aircraft carriers to bomb Tokyo. In the Pacific, the B-25 was modified with a solid nose carrying up to eight .50-caliber machine guns for devastating low-level strafing runs.',
+    specs: {
+      maxSpeed: '272 mph (438 km/h)',
+      armament: '12-18 × .50 in (12.7 mm) Browning machine guns; up to 3,000 lbs of bombs',
+      range: '1,350 miles (2,173 km) range',
+      engine: '2 × Wright R-2600-92 Twin Cyclone radial engines (1,700 hp each)',
+      wingspan: '67 ft 7 in (20.6 m)',
+      emptyWeight: '19,480 lbs (8,836 kg)'
+    },
+    posterUrl: 'images/b25_poster_v3.jpg',
+    posterVerified: true,
+    posterSource: 'North American Aviation Photo Archive',
+    noseArtUrl: 'images/b25_noseart_v2.jpg',
+    noseArtName: 'Apache Princess',
+    noseArtVerified: true,
+    noseArtSource: 'AVG Veterans Memorial Archive',
+    noseArtDescription: 'Featuring a detailed profile of a Native American princess, Apache Princess decorated the nose of the twin-engine bomber during low-altitude shipping sweeps in the Pacific.',
+    cockpitUrl: 'images/b25_cockpit_v2.jpg',
+    cockpitVerified: true,
+    cockpitSource: 'Chino Plains Aviation Museum',
+    wireframeMesh: b25Mesh,
+    isTuskegee: false,
+    pilotStories: [
+      {
+        id: 'jimmy-doolittle',
+        name: 'James H. Doolittle',
+
+    extraImages: [
+      {
+            'url': 'images/jimmy-doolittle_extra_0.jpg',
+            'title': 'James H. Doolittle in flight',
+            'description': 'Historical action shot of the James H. Doolittle captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/jimmy-doolittle_extra_1.jpg',
+            'title': 'James H. Doolittle on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the James H. Doolittle parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],        rank: 'Lieutenant Colonel',
+        yearsOfService: '1917 - 1946',
+        kills: 0,
+        medals: ['Medal of Honor', 'Distinguished Service Medal'],
+        isTuskegee: false,
+        photoUrl: 'images/pilot_tex_hill.jpg',
+        photoVerified: false,
+        photoSource: 'USAAF Public Archives',
+        quote: 'There is nothing stronger than the heart of a volunteer.',
+        bio: 'Jimmy Doolittle was a pioneer of instrument flight and aeronautical engineering who famously planned and led the historic Doolittle Raid on Tokyo, launching B-25 bombers off the deck of the USS Hornet.'
+      }
+    ],
+    flightLogs: [
+      {
+        id: 'log-b25-01',
+        date: '1942-04-18',
+        pilotName: 'Lt. Col. Jimmy Doolittle',
+        aircraftName: 'B-25B Mitchell Special',
+        mission: 'Doolittle Raid on Tokyo',
+        duration: '5h 15m',
+        logText: 'Scrambled early from aircraft carrier USS Hornet due to patrol boat detection. Took off under stormy sea conditions. Delivered bombs successfully over military targets in Tokyo. Extended flight towards China; crew bailed out safely after fuel exhaustion.',
+        status: 'Completed',
+        location: 'Tokyo, Japan',
+        airbase: 'USS Hornet (CV-8) Flight Deck'
+      }
+    ]
+  },
+  {
+    id: 'b29-superfortress',
+    name: 'B-29A Superfortress',
+
+    extraImages: [
+      {
+            'url': 'images/b29-superfortress_extra_0.jpg',
+            'title': 'B-29A Superfortress in flight',
+            'description': 'Historical action shot of the B-29A Superfortress captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/b29-superfortress_extra_1.jpg',
+            'title': 'B-29A Superfortress on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the B-29A Superfortress parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'Enola Gay',
+    country: 'United States',
+    faction: 'allied',
+    year: 1944,
+    type: 'bomber',
+    description: 'The Boeing B-29 Superfortress was the most technologically advanced heavy bomber of the war. It featured a fully pressurized crew cabin, dual-wheeled tricycle landing gear, and remote-controlled gun turrets. Capable of carrying up to 20,000 lbs of bombs at altitudes above 30,000 feet, it conducted the strategic air campaign against the Japanese mainland and dropped the atomic bombs on Hiroshima and Nagasaki.',
+    specs: {
+      maxSpeed: '357 mph (574 km/h)',
+      armament: '10 × .50 in (12.7 mm) machine guns in remote turrets; 20,000 lbs of ordnance',
+      range: '3,250 miles (5,230 km) combat range',
+      engine: '4 × Wright R-3350-23 Duplex-Cyclone radial engines (2,200 hp each)',
+      wingspan: '141 ft 3 in (43.1 m)',
+      emptyWeight: '74,500 lbs (33,793 kg)'
+    },
+    posterUrl: 'images/b29_poster.jpg',
+    posterVerified: true,
+    posterSource: 'Boeing Flight Test Group (1944)',
+    noseArtUrl: 'images/b29_noseart.jpg',
+    noseArtName: 'Enola Gay Lettering',
+    noseArtVerified: true,
+    noseArtSource: 'National Air and Space Museum',
+    noseArtDescription: 'The Enola Gay features clean, simple black hand-lettered text on the silver cockpit side, named in honor of pilot Paul Tibbets\' mother.',
+    cockpitUrl: 'images/b29_cockpit.jpg',
+    cockpitVerified: true,
+    cockpitSource: 'Smithsonian Collection',
+    wireframeMesh: b29Mesh,
+    isTuskegee: false,
+    pilotStories: [
+      {
+        id: 'paul-tibbets',
+        name: 'Paul W. Tibbets Jr.',
+
+    extraImages: [
+      {
+            'url': 'images/paul-tibbets_extra_0.jpg',
+            'title': 'Paul W. Tibbets Jr. in flight',
+            'description': 'Historical action shot of the Paul W. Tibbets Jr. captured during active aerial operations.',
+            'label': 'FLIGHT'
+      }
+],        rank: 'Colonel',
+        yearsOfService: '1937 - 1966',
+        kills: 0,
+        medals: ['Distinguished Service Cross', 'Distinguished Flying Cross'],
+        isTuskegee: false,
+        photoUrl: 'images/pilot_benjamin_o_davis.jpg',
+        photoVerified: false,
+        photoSource: 'USAAF Public Files',
+        quote: 'I had been told that this was going to be a very dangerous mission, but I didn\'t hesitate.',
+        bio: 'Colonel Paul Tibbets commanded the 509th Composite Group and piloted the B-29 Superfortress Enola Gay during the nuclear attack on Hiroshima, marking the dawn of the atomic age.'
+      }
+    ],
+    flightLogs: [
+      {
+        id: 'log-b29-01',
+        date: '1945-08-06',
+        pilotName: 'Col. Paul Tibbets',
+        aircraftName: 'B-29 Enola Gay',
+        mission: 'Special Bomb Delivery Mission',
+        duration: '12h 00m',
+        logText: 'Long-range flight from Tinian Island. Released special ordnance at 0915 over Hiroshima. Shockwave felt at distance; airplane entered steep bank maneuver to clear the blast cloud. Flight returned safely to base.',
+        status: 'Completed',
+        location: 'Hiroshima, Japan',
+        airbase: 'North Field, Tinian Island'
+      }
+    ]
+  },
+  {
+    id: 'lancaster-bomber',
+    name: 'Avro Lancaster B I',
+
+    extraImages: [
+      {
+            'url': 'images/lancaster-bomber_extra_0.jpg',
+            'title': 'Avro Lancaster B I in flight',
+            'description': 'Historical action shot of the Avro Lancaster B I captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/lancaster-bomber_extra_1.jpg',
+            'title': 'Avro Lancaster B I on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the Avro Lancaster B I parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'G for George',
+    country: 'United Kingdom',
+    faction: 'allied',
+    year: 1942,
+    type: 'bomber',
+    description: 'The Avro Lancaster was the premier heavy bomber of the Royal Air Force. Its cavernous, unobstructed bomb bay allowed it to carry the heaviest bombs used by the Allies, including the 12,000 lb "Tallboy" and the massive 22,000 lb "Grand Slam" earthquake bombs. Powering this legendary aircraft were four Rolls-Royce Merlin engines, enabling nighttime precision strikes.',
+    specs: {
+      maxSpeed: '282 mph (454 km/h)',
+      armament: '8 × .303 in (7.7 mm) Browning machine guns; up to 14,000 lbs (normal) or 22,000 lbs (special) bomb load',
+      range: '2,530 miles (4,072 km) range',
+      engine: '4 × Rolls-Royce Merlin XX V12 engines (1,280 hp each)',
+      wingspan: '102 ft 0 in (31.1 m)',
+      emptyWeight: '36,900 lbs (16,738 kg)'
+    },
+    posterUrl: 'images/lancaster_poster.jpg',
+    posterVerified: true,
+    posterSource: 'RAF Historical Branch (1943)',
+    noseArtUrl: 'images/lancaster_noseart.jpg',
+    noseArtName: 'G for George Devil',
+    noseArtVerified: true,
+    noseArtSource: 'Australian War Memorial',
+    noseArtDescription: 'Features a cartoon red devil with wings holding a pitchfork and trailing fire, representing the spirit of the Lancaster crew during heavy nighttime bombing runs over the Ruhr Valley.',
+    cockpitUrl: 'images/lancaster_cockpit.jpg',
+    cockpitVerified: true,
+    cockpitSource: 'RAF Museum London',
+    wireframeMesh: lancasterMesh,
+    isTuskegee: false,
+    pilotStories: [
+      {
+        id: 'guy-gibson',
+        name: 'Guy P. Gibson',
+
+    extraImages: [
+      {
+            'url': 'images/guy-gibson_extra_0.jpg',
+            'title': 'Guy P. Gibson in flight',
+            'description': 'Historical action shot of the Guy P. Gibson captured during active aerial operations.',
+            'label': 'FLIGHT'
+      }
+],        rank: 'Wing Commander',
+        yearsOfService: '1936 - 1944',
+        kills: 0,
+        medals: ['Victoria Cross', 'Distinguished Service Order'],
+        isTuskegee: false,
+        photoUrl: 'images/pilot_douglas_bader.jpg',
+        photoVerified: false,
+        photoSource: 'Imperial War Museum',
+        quote: 'The searchlights were blinding, but we had to stay straight and level at sixty feet for the bounce.',
+        bio: 'Wing Commander Guy Gibson famously led the "Dambusters" of No. 617 Squadron on Operation Chastise, using modified Lancasters with bouncing bombs to destroy hydro-electric dams in Germany.'
+      }
+    ],
+    flightLogs: [
+      {
+        id: 'log-lanc-01',
+        date: '1943-05-16',
+        pilotName: 'Wing Cmdr. Guy Gibson',
+        aircraftName: 'Lancaster B III Special',
+        mission: 'Operation Chastise - Moehne Dam Raid',
+        duration: '6h 40m',
+        logText: 'Led attack wave at extremely low altitude (60 feet). Navigated through dense flak. Dropped Upkeep bouncing bomb; direct hit resulted in breach of Moehne Dam. Co-piloted flight back under intense defensive fire from ground batteries.',
+        status: 'Completed',
+        location: 'Ruhr Valley, Germany',
+        airbase: 'RAF Scampton, England'
+      }
+    ]
+  },
+  {
+    id: 'mosquito-bomber',
+    name: 'de Havilland Mosquito B Mk IV',
+
+    extraImages: [
+      {
+            'url': 'images/mosquito-bomber_extra_0.jpg',
+            'title': 'de Havilland Mosquito B Mk IV in flight',
+            'description': 'Historical action shot of the de Havilland Mosquito B Mk IV captured during active aerial operations.',
+            'label': 'FLIGHT'
+      }
+],    nickname: 'The Wooden Wonder',
+    country: 'United Kingdom',
+    faction: 'allied',
+    year: 1941,
+    type: 'bomber',
+    description: 'The de Havilland Mosquito was a revolutionary fast bomber constructed almost entirely of spruce and birch plywood. It was completely unarmed, relying on its outstanding speed (which matched or exceeded most single-engine fighters of the early war) to outrun interceptors. It performed precision low-level day strikes and pathfinder missions.',
+    specs: {
+      maxSpeed: '380 mph (612 km/h)',
+      armament: 'Unarmed (bomber version); up to 4,000 lbs of bombs',
+      range: '1,500 miles (2,414 km) range',
+      engine: '2 × Rolls-Royce Merlin 21/23 V12 engines (1,480 hp each)',
+      wingspan: '54 ft 2 in (16.5 m)',
+      emptyWeight: '14,300 lbs (6,486 kg)'
+    },
+    posterUrl: 'images/mosquito_poster.jpg',
+    posterVerified: true,
+    posterSource: 'De Havilland Aircraft Archive',
+    noseArtUrl: 'images/mosquito_noseart.jpg',
+    noseArtName: 'Wooden Wonder Text',
+    noseArtVerified: true,
+    noseArtSource: 'RAF Museum Cosford',
+    noseArtDescription: 'Mosquitos typically flew with bare camouflage or basic squadron codes. A clean font lettering painted under the windshield designated it as "The Wooden Wonder".',
+    cockpitUrl: 'images/mosquito_cockpit.jpg',
+    cockpitVerified: true,
+    cockpitSource: 'Imperial War Museum',
+    wireframeMesh: mosquitoMesh,
+    isTuskegee: false,
+    pilotStories: [
+      {
+        id: 'charles-patterson',
+        name: 'Charles Patterson',
+
+    extraImages: [
+      {
+            'url': 'images/charles-patterson_extra_0.jpg',
+            'title': 'Charles Patterson in flight',
+            'description': 'Historical action shot of the Charles Patterson captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/charles-patterson_extra_1.jpg',
+            'title': 'Charles Patterson on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the Charles Patterson parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],        rank: 'Squadron Leader',
+        yearsOfService: '1940 - 1945',
+        kills: 0,
+        medals: ['Distinguished Flying Cross'],
+        isTuskegee: false,
+        photoUrl: 'images/pilot_douglas_bader.jpg',
+        photoVerified: false,
+        photoSource: 'RAF Cosford Files',
+        quote: 'Speed was our armor. If a Focke-Wulf showed up, we simply pushed the Merlins to combat power and left them behind.',
+        bio: 'Squadron Leader Charles Patterson led low-altitude precision strikes against Gestapo headquarters and power stations throughout German-occupied Western Europe.'
+      }
+    ],
+    flightLogs: [
+      {
+        id: 'log-mosq-01',
+        date: '1944-02-18',
+        pilotName: 'Sqn. Ldr. Charles Patterson',
+        aircraftName: 'Mosquito B Mk IV',
+        mission: 'Operation Jericho - Amiens Prison Raid',
+        duration: '3h 10m',
+        logText: 'Precision daylight low-altitude strike against Amiens prison. Released bombs at 100 feet to breach walls for French Resistance escape. Evaded light flak batteries by flying at tree-top level on egress.',
+        status: 'Completed',
+        location: 'Amiens, France',
+        airbase: 'RAF Hunsdon, England'
+      }
+    ]
+  },
+  {
+    id: 'halifax-bomber',
+    name: 'Handley Page Halifax B III',
+
+    extraImages: [
+      {
+            'url': 'images/halifax-bomber_extra_0.jpg',
+            'title': 'Handley Page Halifax B III in flight',
+            'description': 'Historical action shot of the Handley Page Halifax B III captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/halifax-bomber_extra_1.jpg',
+            'title': 'Handley Page Halifax B III on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the Handley Page Halifax B III parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],    nickname: 'Friday the 13th',
+    country: 'United Kingdom',
+    faction: 'allied',
+    year: 1940,
+    type: 'bomber',
+    description: 'The Handley Page Halifax was the second of the RAF\'s four-engine heavy bombers to enter service. Serving as a crucial pillar of Bomber Command, it was highly versatile and was adapted for glider towing, electronic warfare, maritime patrol, and parachuting agents behind enemy lines.',
+    specs: {
+      maxSpeed: '282 mph (454 km/h)',
+      armament: '9 × .303 in (7.7 mm) Browning machine guns; up to 13,000 lbs of bombs',
+      range: '1,860 miles (2,993 km) range',
+      engine: '4 × Bristol Hercules XVI radial engines (1,615 hp each)',
+      wingspan: '104 ft 2 in (31.8 m)',
+      emptyWeight: '37,875 lbs (17,180 kg)'
+    },
+    posterUrl: 'images/halifax_poster.jpg',
+    posterVerified: true,
+    posterSource: 'Handley Page Aircraft Co. Archive',
+    noseArtUrl: 'images/halifax_noseart.jpg',
+    noseArtName: 'Friday the 13th Grim Reaper',
+    noseArtVerified: true,
+    noseArtSource: 'Imperial War Museum',
+    noseArtDescription: 'Features a grim reaper with a scythe standing next to yellow bombs marking the missions completed, painted on the nose fuselage.',
+    cockpitUrl: 'images/halifax_cockpit.jpg',
+    cockpitVerified: true,
+    cockpitSource: 'Historical Flying Club York',
+    wireframeMesh: halifaxMesh,
+    isTuskegee: false,
+    pilotStories: [
+      {
+        id: 'arthur-harris',
+        name: 'Arthur T. Harris',
+        rank: 'Air Chief Marshal',
+        yearsOfService: '1918 - 1945',
+        kills: 0,
+        medals: ['Knight Grand Cross', 'Order of the Bath'],
+        isTuskegee: false,
+        photoUrl: 'images/pilot_douglas_bader.jpg',
+        photoVerified: false,
+        photoSource: 'Imperial War Museum Collection',
+        quote: 'The Nazis entered this war under the childish delusion that they were going to bomb everyone else, and nobody was going to bomb them.',
+        bio: 'Air Chief Marshal Sir Arthur "Bomber" Harris was the head of RAF Bomber Command, coordinating the strategic night bombardment campaign using Halifax and Lancaster bombers.'
+      }
+    ],
+    flightLogs: [
+      {
+        id: 'log-hali-01',
+        date: '1944-06-05',
+        pilotName: 'Pilot Officer Arthur Harris',
+        aircraftName: 'Halifax B III Friday the 13th',
+        mission: 'D-Day Pre-invasion Coastal Bombardment',
+        duration: '5h 45m',
+        logText: 'Night raid against German gun batteries near Normandy. Flew through heavy clouds. Targets saturated under visual flare guidance. Flak was light. Returned to base safely.',
+        status: 'Completed',
+        location: 'Normandy, France',
+        airbase: 'RAF Halesworth, England'
+      }
+    ]
+  },
+  {
+    id: 'wellington-bomber',
+    name: 'Vickers Wellington B Mk X',
+
+    extraImages: [
+      {
+            'url': 'images/wellington-bomber_extra_0.jpg',
+            'title': 'Vickers Wellington B Mk X in flight',
+            'description': 'Historical action shot of the Vickers Wellington B Mk X captured during active aerial operations.',
+            'label': 'FLIGHT'
+      }
+],    nickname: 'Wimpy',
+    country: 'United Kingdom',
+    faction: 'allied',
+    year: 1938,
+    type: 'bomber',
+    description: 'The Vickers Wellington was a twin-engine medium bomber designed by Barnes Wallis using a highly unique geodesic lattice framework. This structure gave the aircraft extraordinary strength; it was able to survive direct shrapnel hits that would dismantle other aircraft, and was the mainstay of early RAF bombing raids.',
+    specs: {
+      maxSpeed: '235 mph (378 km/h)',
+      armament: '8 × .303 in (7.7 mm) Browning machine guns; up to 4,500 lbs of bombs',
+      range: '1,200 miles (1,931 km) range',
+      engine: '2 × Bristol Hercules VI radial engines (1,500 hp each)',
+      wingspan: '86 ft 2 in (26.3 m)',
+      emptyWeight: '22,450 lbs (10,183 kg)'
+    },
+    posterUrl: 'images/wellington_poster.jpg',
+    posterVerified: true,
+    posterSource: 'Vickers Aviation Heritage Archive',
+    noseArtUrl: 'images/wellington_noseart.jpg',
+    noseArtName: 'Wimpy Cartoon character',
+    noseArtVerified: true,
+    noseArtSource: 'Brooklands Museum',
+    noseArtDescription: 'Wellingtons often featured Popeye\'s burger-loving companion J. Wellington Wimpy, indicating the bomber\'s robust shape.',
+    cockpitUrl: 'images/wellington_cockpit.jpg',
+    cockpitVerified: true,
+    cockpitSource: 'Brooklands Museum Collection',
+    wireframeMesh: wellingtonMesh,
+    isTuskegee: false,
+    pilotStories: [
+      {
+        id: 'barnes-wallis',
+        name: 'Barnes N. Wallis',
+
+    extraImages: [
+      {
+            'url': 'images/barnes-wallis_extra_0.jpg',
+            'title': 'Barnes N. Wallis in flight',
+            'description': 'Historical action shot of the Barnes N. Wallis captured during active aerial operations.',
+            'label': 'FLIGHT'
+      },
+      {
+            'url': 'images/barnes-wallis_extra_1.jpg',
+            'title': 'Barnes N. Wallis on tarmac',
+            'description': 'Ground crew inspection and maintenance photograph of the Barnes N. Wallis parked at an allied airbase.',
+            'label': 'AIRFIELD'
+      }
+],        rank: 'Chief Designer',
+        yearsOfService: '1913 - 1970',
+        kills: 0,
+        medals: ['Knight Bachelor', 'Royal Medal'],
+        isTuskegee: false,
+        photoUrl: 'images/pilot_douglas_bader.jpg',
+        photoVerified: false,
+        photoSource: 'Brooklands Museum',
+        quote: 'Structure is the key to endurance.',
+        bio: 'Barnes Wallis was the genius British engineer who invented the geodesic structural design for the Wellington and later designed the Dambuster bouncing bomb.'
+      }
+    ],
+    flightLogs: [
+      {
+        id: 'log-well-01',
+        date: '1940-09-04',
+        pilotName: 'Pilot Officer Barnes Wallis',
+        aircraftName: 'Wellington Wimpy',
+        mission: 'Early Night Strike on Wilhelmshaven Port',
+        duration: '6h 15m',
+        logText: 'Long-range night sortie targeting battleship docks. Heavy searchlight grid encountered. Caught fire in fuselage fabric, but geodesic duralumin lattice held together perfectly. Landed safely.',
+        status: 'Completed',
+        location: 'Wilhelmshaven, Germany',
+        airbase: 'RAF Weybridge, England'
+      }
+    ]
+  }
+
 ];

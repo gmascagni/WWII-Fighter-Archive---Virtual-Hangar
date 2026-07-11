@@ -31,6 +31,7 @@ export interface PilotStory {
   squadronName?: string;
   baseOfOperations?: string;
   specialCommendation?: string;
+  extraImages?: ExtraImage[];
 }
 
 export interface FlightLog {
@@ -76,6 +77,15 @@ export interface FighterAircraft {
   cockpitVerified?: boolean;
   cockpitSource?: string;
   wireframeMesh: WireframeMesh;
+  type?: 'fighter' | 'bomber';
+  extraImages?: ExtraImage[];
+}
+
+export interface ExtraImage {
+  url: string;
+  title: string;
+  description: string;
+  label: string;
 }
 
 // User's virtual hangar item
