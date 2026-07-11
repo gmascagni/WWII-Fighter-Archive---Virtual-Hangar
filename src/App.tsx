@@ -371,8 +371,8 @@ export default function App() {
       <div 
         className="fixed inset-0 pointer-events-none z-0 transition-all duration-1000 ease-in-out bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: `radial-gradient(circle at 50% 30%, rgba(20, 22, 28, 0.45) 0%, rgba(7, 9, 14, 0.99) 100%), url(${currentBgImage})`,
-          filter: "hue-rotate(325deg) sepia(0.3) saturate(1.3) brightness(0.15) contrast(1.15)"
+          backgroundImage: `radial-gradient(circle at 50% 30%, rgba(20, 22, 28, 0.25) 0%, rgba(7, 9, 14, 0.9) 100%), url(${currentBgImage})`,
+          filter: "hue-rotate(325deg) sepia(0.2) saturate(1.2) brightness(0.5) contrast(1.05)"
         }}
       />
       {/* Semi-transparent transparent watermark background of the active airplane */}
@@ -978,6 +978,7 @@ export default function App() {
                                   country={focusedFighter.country}
                                   year={focusedFighter.year}
                                   faction={focusedFighter.faction}
+                                  posterUrl={focusedFighter.posterUrl}
                                 />
                                 
                                 {/* Hotspot triggers overlayed directly on top of the Artist Rendition Canvas */}
@@ -1024,7 +1025,7 @@ export default function App() {
                                 )}
 
                                 {/* Corner Nose art decaling launcher switch */}
-                                <div className="absolute bottom-[92px] right-3 z-40">
+                                <div className="absolute top-3 right-3 z-40">
                                   <button
                                     onClick={() => { audioEngine.playClick(); setShowNoseArtDecal(true); setActiveHotspot(null); }}
                                     className="bg-stone-950/90 hover:bg-stone-900 text-[#f3c360] font-stencil border border-[#363f2d] text-[9px] tracking-widest font-bold py-1.5 px-3 rounded uppercase shadow-2xl transition-all flex items-center gap-1.5 cursor-pointer"
